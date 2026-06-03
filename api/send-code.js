@@ -14,7 +14,7 @@ export default async function handler(request, response) {
         // IMPORTANT: Use the verified email address you used to sign up for Resend
         const data = await resend.emails.send({
             from: 'onboarding@resend.dev', 
-            to: '4153417416@txt.att.net',
+            to: 'amandavalverde@cca.edu',
             subject: 'Leadership Diary Security Code',
             text: `Your Leadership Diary security verification code is: ${code}`,
         });
