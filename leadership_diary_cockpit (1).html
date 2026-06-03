@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amanda Valverde // Leadership Diary Cockpit</title>
+    
+    <!-- Google Fonts for Bricolage Grotesque and Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mustard: '#D19D14',
+                        'deep-brown': '#501A0D',
+                        'soft-salmon': '#F99B86',
+                        'vibrant-orange': '#F95417',
+                        'lavender-pink': '#FBCBFA',
+                        'warm-cream': '#FAF8F5'
+                    },
+                    fontFamily: {
+                        display: ['Bricolage Grotesque', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --color-mustard: #D19D14;
+            --color-deep-brown: #501A0D;
+            --color-soft-salmon: #F99B86;
+            --color-vibrant-orange: #F95417;
+            --color-lavender-pink: #FBCBFA;
+            --color-cream: #FAF8F5;
+            --stroke-heavy: 4px solid var(--color-deep-brown);
+            --font-scale: 1.0; 
+        }
+
+        html {
+            font-size: calc(100% * var(--font-scale)) !important; 
+        }
+
+        body {
+            background-color: var(--color-lavender-pink);
+            color: var(--color-deep-brown);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom High Contrast overrides mapping the established parameters */
+        body.high-contrast {
+            --color-bg: #FFFFFF !important;
+            --color-lavender-pink: #FFFFFF !important;
+            --color-mustard: #FFFF00 !important;
+            --color-deep-brown: #000000 !important;
+            --color-cream: #FFFFFF !important;
+            --color-soft-salmon: #FFFFFF !important;
+            --color-vibrant-orange: #0000FF !important;
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+        body.high-contrast .bg-mustard { background-color: #ffff00 !important; }
+        body.high-contrast .bg-warm-cream,
+        body.high-contrast .bg-cream { background-color: #ffffff !important; }
+        body.high-contrast .bg-vibrant-orange { background-color: #0000ff !important; color: #ffffff !important; }
+        body.high-contrast .bg-lavender-pink { background-color: #ffffff !important; }
+        body.high-contrast .bg-soft-salmon { background-color: #ffffff !important; }
+        body.high-contrast .text-deep-brown { color: #000000 !important; }
+        body.high-contrast .border-deep-brown,
+        body.high-contrast .border-r-4,
+        body.high-contrast .border-4,
+        body.high-contrast .border-2 { border-color: #000000 !important; }
+        body.high-contrast .shadow-\[4px_4px_0px_#501A0D\],
+        body.high-contrast .shadow-\[3px_3px_0px_#501A0D\],
+        body.high-contrast .shadow-\[6px_6px_0px_#501A0D\],
+        body.high-contrast .shadow-\[8px_8px_0px_#501A0D\],
+        body.high-contrast .brutalist-card {
+            box-shadow: 4px 4px 0px #000000 !important;
+        }
+
+        /* Prevent rollover text whiteout in High Contrast Mode */
+        body.high-contrast .brutalist-btn:hover,
+        body.high-contrast button:hover,
+        body.high-contrast [role="button"]:hover,
+        body.high-contrast .sidebar-link:hover {
+            background-color: #000000 !important;
+            color: #FFFF00 !important; 
+            border-color: #000000 !important;
+        }
+        body.high-contrast a:hover {
+            color: #0000FF !important;
+            text-decoration: underline !important;
+        }
+        body.high-contrast .scale-btn:hover {
+            background-color: #000000 !important;
+            color: #FFFFFF !important;
+        }
+
+        /* Accessibility Component Styles - Isolated from dynamic html root scaling */
+        .sidebar-accessibility {
+            margin-top: 1rem;
+            background-color: var(--color-cream);
+            border: var(--stroke-heavy);
+            padding: 10px;
+            border-radius: 16px;
+            box-shadow: 3px 3px 0px var(--color-deep-brown);
+            transition: all 0.2s ease;
+        }
+        
+        .sidebar-accessibility,
+        .sidebar-accessibility * {
+            font-size: unset; 
+        }
+        
+        .accessibility-controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+        }
+        
+        .sidebar-accessibility .brutalist-btn {
+            font-size: clamp(8px, 2.5vw, 10px) !important;
+            padding: 5px 8px !important;
+            box-shadow: 2px 2px 0px var(--color-deep-brown) !important;
+            margin: 0 !important;
+            flex-shrink: 0;
+        }
+        
+        .scale-control {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+            margin-top: 0;
+            flex-grow: 1;
+        }
+        
+        .scale-btn {
+            background-color: var(--color-cream);
+            border: 2px solid var(--color-deep-brown);
+            border-radius: 50%;
+            width: 24px !important;
+            height: 24px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: 14px !important;
+            color: var(--color-deep-brown);
+            cursor: pointer;
+            box-shadow: 1.5px 1.5px 0px var(--color-deep-brown);
+            transition: all 0.1s ease;
+            padding: 0 !important;
+            flex-shrink: 0;
+        }
+        
+        .sidebar-accessibility .scale-display {
+            font-size: clamp(8px, 2.5vw, 10px) !important;
+            padding: 4px 6px !important;
+            width: 44px !important;
+            text-align: center;
+            box-shadow: 1.5px 1.5px 0px var(--color-deep-brown) !important;
+            flex-shrink: 0;
+        }
+        
+        .scale-btn:hover {
+            background-color: var(--color-lavender-pink);
+            transform: translate(-1px, -1px);
+            box-shadow: 2px 2px 0px var(--color-deep-brown);
+        }
+        
+        .scale-btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 0.5px 0.5px 0px var(--color-deep-brown);
+        }
+
+        .accessibility-desc {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+            font-size: 10px !important;
+            line-height: 1.3;
+            margin-top: 0;
+            color: var(--color-deep-brown);
+        }
+        
+        .sidebar-accessibility:hover .accessibility-desc {
+            max-height: 80px;
+            opacity: 0.8;
+            margin-top: 8px;
+        }
+
+        /* Hide Scrollbars Globally while maintaining scroll behavior */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Neo-Brutalist Component Shadows */
+        .brutalist-card {
+            background-color: var(--color-cream);
+            border: var(--stroke-heavy);
+            box-shadow: 8px 8px 0px var(--color-deep-brown);
+            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .brutalist-btn {
+            border: var(--stroke-heavy);
+            box-shadow: 4px 4px 0px var(--color-deep-brown);
+            transition: all 0.1s ease;
+        }
+
+        .brutalist-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--color-deep-brown);
+        }
+
+        .brutalist-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--color-deep-brown);
+        }
+
+        /* Custom Neo-Brutalist Range Slider Stylings */
+        .neo-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 14px;
+            background: var(--color-lavender-pink);
+            border: 3px solid var(--color-deep-brown);
+            border-radius: 100px;
+            outline: none;
+            transition: background 0.15s ease;
+        }
+
+        .neo-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--color-vibrant-orange);
+            border: 3px solid var(--color-deep-brown);
+            cursor: pointer;
+            box-shadow: 2px 2px 0px var(--color-deep-brown);
+            transition: transform 0.1s ease;
+        }
+
+        .neo-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        /* Quote Loading pulse animation */
+        @keyframes quotePulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        .ai-loading-pulse {
+            animation: quotePulse 1.5s infinite ease-in-out;
+        }
+
+        /* Resizing Divider Line cursor control */
+        #resizer {
+            cursor: col-resize;
+            transition: background-color 0.15s ease;
+        }
+
+        #toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .toast-node {
+            background: var(--color-cream);
+            border: var(--stroke-heavy);
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 4px 4px 0px var(--color-deep-brown);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(120%);
+            animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            max-width: 320px;
+            pointer-events: auto;
+        }
+
+        .export-desc {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+            font-size: 11px;
+            line-height: 1.3;
+            margin-top: 0;
+            color: var(--color-deep-brown);
+            font-weight: normal !important;
+        }
+
+        .export-desc.active {
+            max-height: 80px;
+            opacity: 0.8;
+            margin-top: 8px;
+        }
+
+        @keyframes slideIn {
+            to { transform: translateX(0); }
+        }
+
+        /* Native Column Spanning behavior for inline masonry expansion */
+        .masonry-item.expanded-span {
+            column-span: all;
+            -webkit-column-span: all;
+            width: 100%;
+            break-inside: avoid;
+            margin-bottom: 2rem;
+        }
+
+        /* Custom transition properties for smooth inline disclosure */
+        .expanded-view {
+            display: none;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .masonry-item.expanded-span .expanded-view {
+            display: block;
+        }
+
+        .masonry-item.expanded-span .compact-view {
+            display: none;
+        }
+
+        /* Custom masonry rules wrapping images cleanly */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                column-count: 3;
+            }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .main-content {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+            .card-print {
+                border: 2px solid #000000 !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+                margin-bottom: 2rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-lavender-pink flex flex-col md:flex-row antialiased select-none overflow-hidden">
+
+    <!-- Parent container managing Resizable side-by-side splits -->
+    <div class="flex h-screen w-screen overflow-hidden no-scrollbar" id="app-container">
+
+        <!-- Navigation Sidebar -->
+        <aside id="sidebar" class="no-print h-full shrink-0 bg-mustard border-r-4 border-deep-brown p-6 flex flex-col justify-between overflow-y-auto no-scrollbar" style="width: 320px; min-width: 260px; max-width: 500px;">
+            <div class="space-y-6">
+                <!-- Header Profile Section -->
+                <div class="bg-warm-cream border-4 border-deep-brown rounded-2xl p-4 shadow-[4px_4px_0px_#501A0D] mb-4 relative text-center">
+                    <div class="relative w-28 h-28 mx-auto mb-3">
+                        <img id="profile-preview" src="Facetune_26-10-2025-16-39-45.jpg" 
+                             alt="Amanda Valverde Profile" 
+                             class="w-full h-full object-cover rounded-full border-4 border-deep-brown shadow-[2px_2px_0px_#501A0D]"
+                             onerror="this.onerror=null; this.src='https://placehold.co/150x150/FBCBFA/501A0D?text=AV'">
+                    </div>
+                    <h1 class="font-display font-extrabold text-2xl text-deep-brown text-center uppercase tracking-tight leading-none">Amanda Valverde</h1>
+                    <p class="text-xs text-deep-brown/80 font-bold text-center mt-1 font-display tracking-widest uppercase">UX Engineer & Leader</p>
+                    <div class="bg-lavender-pink border-2 border-deep-brown px-3 py-1 text-[11px] font-display font-extrabold text-deep-brown mt-3 text-center uppercase rotate-[-1deg] shadow-[2px_2px_0px_#501A0D] rounded-md">
+                        Leadership Diary
+                    </div>
+                </div>
+
+                <!-- Global Metrics Summary Dashboard -->
+                <div class="bg-warm-cream border-4 border-deep-brown rounded-2xl p-4 shadow-[4px_4px_0px_#501A0D] mb-4">
+                    <h3 class="font-display font-extrabold text-xs text-deep-brown uppercase tracking-wider mb-3 border-b-2 border-deep-brown/20 pb-1">Average Session Metrics</h3>
+                    <div class="space-y-2.5 text-xs font-bold" id="sidebar-averages">
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Confidence:</span>
+                            <span id="avg-confidence" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Communication:</span>
+                            <span id="avg-communication" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Team Contribution:</span>
+                            <span id="avg-contribution" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Decision Making:</span>
+                            <span id="avg-decisions" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Energy Level:</span>
+                            <span id="avg-energy" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Search & Tag Filters -->
+                <div class="bg-warm-cream border-4 border-deep-brown rounded-2xl p-4 shadow-[4px_4px_0px_#501A0D]">
+                    <h3 class="font-display font-extrabold text-xs text-deep-brown uppercase tracking-wider mb-2">Popular Tags</h3>
+                    <div class="flex flex-wrap gap-1.5" id="sidebar-tags">
+                        <span class="text-[11px] font-bold opacity-60">No entries recorded.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backups & Custom Accessibility Control Modules at Bottom of Sidebar -->
+            <div class="mt-6 space-y-4">
+                <!-- Footer Backup Panel styled as UI specifications -->
+                <div class="bg-warm-cream border-4 border-deep-brown rounded-2xl p-3 shadow-[3px_3px_0px_#501A0D] text-xs font-bold">
+                    <span class="block text-[10px] font-display uppercase tracking-widest text-vibrant-orange mb-1">Backup & Git Sync</span>
+                    <div class="flex gap-1.5">
+                        <button onclick="exportData('json')" onmouseenter="showDesc('json')" onmouseleave="hideDesc('json')" class="bg-lavender-pink border-2 border-deep-brown p-1.5 rounded-md hover:bg-vibrant-orange hover:text-white transition-colors w-1/2 text-center text-[10px] uppercase">Export JSON</button>
+                        <button onclick="exportData('md')" onmouseenter="showDesc('md')" onmouseleave="hideDesc('md')" class="bg-lavender-pink border-2 border-deep-brown p-1.5 rounded-md hover:bg-vibrant-orange hover:text-white transition-colors w-1/2 text-center text-[10px] uppercase">Export MD</button>
+                    </div>
+                    <div id="json-desc" class="export-desc">
+                        Downloads your entire diary database as a JSON file. Use this to commit to your GitHub repository so your live site stays updated.
+                    </div>
+                    <div id="md-desc" class="export-desc">
+                        Downloads your diary history as a cleanly structured Markdown document, ready for static note editors or Hugo/Jekyll integration.
+                    </div>
+                </div>
+
+                <!-- Accessibility Controls -->
+                <div class="sidebar-accessibility">
+                    <div class="accessibility-controls-row">
+                        <button class="brutalist-btn bg-warm-cream border-2 border-deep-brown p-1.5 rounded-md hover:bg-vibrant-orange hover:text-white text-[10px] font-bold uppercase" onclick="toggleContrast()" style="padding: 6px 10px; margin: 0; box-shadow: 2px 2px 0px var(--color-deep-brown); flex-shrink: 0;">
+                            🌓 Contrast
+                        </button>
+                        <div class="scale-control">
+                            <button class="scale-btn" onclick="adjustFontScale(-0.05)">−</button>
+                            <button class="brutalist-btn bg-warm-cream border-2 border-deep-brown p-1.5 text-[10px] font-bold uppercase rounded-md scale-display" onclick="resetFontScale()" title="Click to reset scale" style="padding: 4px 8px; margin: 0; box-shadow: 2px 2px 0px var(--color-deep-brown); text-align: center; width: 48px;">
+                                100%
+                            </button>
+                            <button class="scale-btn" onclick="adjustFontScale(0.05)">+</button>
+                        </div>
+                    </div>
+                    <div class="accessibility-desc">
+                        Adjust contrast properties and typographic scales on the fly. Hover to reveal description details.
+                    </div>
+                </div>
+
+                <div class="text-[10px] font-mono text-deep-brown/70 text-center">
+                    amandavalverdedesign.github.io
+                </div>
+            </div>
+        </aside>
+
+        <!-- Draggable Resizer Partition Handler -->
+        <div id="resizer" class="hidden md:flex w-2 hover:w-3 bg-deep-brown cursor-col-resize shrink-0 justify-center items-center relative select-none">
+            <div class="w-1 h-12 bg-warm-cream rounded"></div>
+        </div>
+
+        <!-- Main Workspace Frame -->
+        <main id="main-content" class="flex-grow h-full overflow-y-auto no-scrollbar p-4 md:p-8 flex flex-col gap-6">
+            
+            <!-- Header Controls with Toggle triggers and Search tool -->
+            <div class="no-print flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-4 bg-warm-cream border-4 border-deep-brown p-4 rounded-2xl shadow-[6px_6px_0px_#501A0D] shrink-0">
+                <div class="flex-grow min-w-[200px]">
+                    <!-- Write New Entry Button with structural parameters -->
+                    <button onclick="toggleComposer()" class="brutalist-btn bg-vibrant-orange text-white font-display font-extrabold text-sm md:text-base uppercase tracking-wider px-5 py-2.5 rounded-xl flex items-center justify-between gap-3 w-full transition-transform duration-100">
+                        <span>⚡ Write New Entry</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 transition-transform duration-200" id="composer-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Dynamic Magnifying Glass Tag Search Tool -->
+                <div class="relative flex flex-col sm:flex-row items-stretch sm:items-center flex-grow min-w-[200px] gap-2">
+                    <div class="relative flex-grow">
+                        <input type="text" id="tag-search" oninput="filterEntries()" placeholder="Search titles or tags..." 
+                               class="border-4 border-deep-brown bg-white text-deep-brown font-bold text-sm px-4 py-2 rounded-xl focus:outline-none focus:border-vibrant-orange w-full pr-10 shadow-[2px_2px_0px_#501A0D] transition-all">
+                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-deep-brown pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <button onclick="toggleDateFilter()" class="brutalist-btn bg-mustard text-deep-brown px-4 py-2.5 rounded-xl shrink-0 font-display font-extrabold text-sm flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#501A0D]" title="Filter by calendar range">
+                        <span>📅 Date Range</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Collapsible Custom Interactive Calendar Panel -->
+            <div id="date-filter-panel" class="no-print hidden bg-warm-cream border-4 border-deep-brown rounded-3xl p-6 shadow-[8px_8px_0px_#501A0D] flex flex-col md:flex-row gap-6">
+                <!-- Calendar Viewport -->
+                <div class="flex-grow">
+                    <div class="flex justify-between items-center mb-4">
+                        <button onclick="prevMonth()" class="scale-btn" style="width: 32px; height: 32px;">←</button>
+                        <h3 id="calendar-month-year" class="font-display font-extrabold text-lg text-deep-brown uppercase tracking-tight">-</h3>
+                        <button onclick="nextMonth()" class="scale-btn" style="width: 32px; height: 32px;">→</button>
+                    </div>
+                    
+                    <!-- Weekdays Row -->
+                    <div class="grid grid-cols-7 gap-1.5 text-center font-display font-extrabold text-[11px] text-vibrant-orange tracking-widest mb-2">
+                        <span>SU</span><span>MO</span><span>TU</span><span>WE</span><span>TH</span><span>FR</span><span>SA</span>
+                    </div>
+                    
+                    <!-- Day Block Cells -->
+                    <div id="calendar-days-grid" class="grid grid-cols-7 gap-1.5 select-none">
+                        <!-- Custom rendered days map dynamically -->
+                    </div>
+                </div>
+
+                <!-- Custom Range Information and Presets Panel -->
+                <div class="w-full md:w-56 shrink-0 flex flex-col justify-between gap-4 border-t-4 md:border-t-0 md:border-l-4 border-deep-brown/15 pt-4 md:pt-0 md:pl-6">
+                    <div class="space-y-3">
+                        <span class="block text-[10px] font-display uppercase tracking-widest text-vibrant-orange font-extrabold">Ecosystem Presets</span>
+                        <div class="space-y-2">
+                            <button onclick="setDatePreset('today')" class="brutalist-btn bg-white text-deep-brown text-xs font-bold w-full py-2 px-3 text-left rounded-xl hover:bg-lavender-pink transition-colors">📅 Today Only</button>
+                            <button onclick="setDatePreset('week')" class="brutalist-btn bg-white text-deep-brown text-xs font-bold w-full py-2 px-3 text-left rounded-xl hover:bg-lavender-pink transition-colors">📅 Last 7 Days</button>
+                            <button onclick="setDatePreset('month')" class="brutalist-btn bg-white text-deep-brown text-xs font-bold w-full py-2 px-3 text-left rounded-xl hover:bg-lavender-pink transition-colors">📅 This Month</button>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-lavender-pink/30 border-2 border-deep-brown p-3 rounded-xl font-mono text-xs text-deep-brown space-y-1">
+                            <div class="flex justify-between"><span>Start:</span><strong id="filter-start-display" class="text-vibrant-orange">-</strong></div>
+                            <div class="flex justify-between"><span>End:</span><strong id="filter-end-display" class="text-vibrant-orange">-</strong></div>
+                        </div>
+                        <button onclick="clearDateFilter()" class="brutalist-btn bg-soft-salmon text-deep-brown text-xs font-display font-black uppercase w-full py-2.5 rounded-xl">Clear Range</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Post Composer Dashboard -->
+            <div id="composer-panel" class="no-print hidden bg-warm-cream border-4 border-deep-brown rounded-3xl p-6 shadow-[8px_8px_0px_#501A0D] transition-all duration-300">
+                <div class="flex justify-between items-center mb-6 border-b-4 border-deep-brown pb-2">
+                    <h2 id="form-heading" class="font-display font-extrabold text-2xl uppercase text-vibrant-orange tracking-tight">Drafting New Entry</h2>
+                    <button onclick="toggleComposer()" class="text-deep-brown hover:text-vibrant-orange font-display font-black text-xl">✕</button>
+                </div>
+
+                <form id="entry-form" onsubmit="handlePostSubmit(event)" class="space-y-5 select-text">
+                    <input type="hidden" id="entry-edit-id">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-sm uppercase text-deep-brown tracking-wide">Entry Title</label>
+                            <input type="text" id="post-title" required placeholder="e.g., Q3 Design Sync Retrospective" 
+                                   class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold focus:outline-none focus:border-vibrant-orange">
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-sm uppercase text-deep-brown tracking-wide">Searchable Tags</label>
+                            <input type="text" id="post-tags" placeholder="ux, leadership, metrics, testing" 
+                                   class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold focus:outline-none focus:border-vibrant-orange">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-display font-extrabold text-sm uppercase text-deep-brown tracking-wide">Main Narrative Copy</label>
+                        <textarea id="post-copy" required rows="5" placeholder="Deeply document the scenario, the technical bottlenecks, and organizational challenges encountered..." 
+                                  class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold focus:outline-none focus:border-vibrant-orange"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-xs uppercase text-vibrant-orange tracking-wide leading-tight">01. Key Insight / Learning</label>
+                            <textarea id="post-insight" required rows="3" placeholder="What core paradigm shifted during this project lifecycle?" 
+                                      class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold text-xs focus:outline-none focus:border-vibrant-orange flex-grow"></textarea>
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-xs uppercase text-mustard tracking-wide leading-tight">02. Set Actionable Goal</label>
+                            <textarea id="post-goal" required rows="3" placeholder="Establish a clear key result or trace metrics from a previous goal..." 
+                                      class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold text-xs focus:outline-none focus:border-vibrant-orange flex-grow"></textarea>
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-xs uppercase text-soft-salmon tracking-wide leading-tight">03. Change Protocol</label>
+                            <textarea id="post-different" required rows="3" placeholder="Specifically, what structural tactic will you approach differently?" 
+                                      class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold text-xs focus:outline-none focus:border-vibrant-orange flex-grow"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Metric Dashboard Sliding Scale Grid -->
+                    <div class="bg-lavender-pink/30 border-4 border-deep-brown p-5 rounded-2xl">
+                        <h3 class="font-display font-extrabold text-sm uppercase text-deep-brown mb-5 tracking-wider">Session Reflection Metrics</h3>
+                        
+                        <div class="space-y-4">
+                            <!-- Metric 1: Confidence -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Confidence</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-confidence" class="neo-slider w-full" oninput="updateSliderVal('confidence', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-confidence" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2: Communication -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Communication</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-communication" class="neo-slider w-full" oninput="updateSliderVal('communication', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-communication" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3: Team Contribution -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Team Contribution</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-contribution" class="neo-slider w-full" oninput="updateSliderVal('contribution', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-contribution" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 4: Decision Making -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Decision Making</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-decisions" class="neo-slider w-full" oninput="updateSliderVal('decisions', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-decisions" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 5: Energy Level -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Energy Level</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-energy" class="neo-slider w-full" oninput="updateSliderVal('energy', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-energy" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Required Card Image Selector -->
+                    <div class="flex flex-col gap-1.5 bg-mustard/20 border-4 border-deep-brown p-4 rounded-2xl relative">
+                        <label class="font-display font-extrabold text-sm uppercase text-deep-brown tracking-wide">Attach Card Cover Image <span class="text-vibrant-orange">*Required</span></label>
+                        <div class="flex flex-col md:flex-row items-center gap-4">
+                            <input type="file" id="post-media" accept="image/*" required class="border-2 border-deep-brown bg-white p-2 rounded-xl font-bold w-full md:w-auto text-xs" onchange="previewMediaAttachment(event)">
+                            <button type="button" id="clear-media-btn" onclick="clearMediaUpload()" class="hidden brutalist-btn bg-soft-salmon text-deep-brown text-xs font-bold uppercase px-3 py-2 rounded-lg">Clear Media</button>
+                        </div>
+                        <!-- Display previews -->
+                        <div id="media-preview-area" class="mt-3 hidden border-2 border-deep-brown rounded-xl p-2 bg-white max-h-48 overflow-hidden flex items-center justify-center"></div>
+                    </div>
+
+                    <!-- Form Actions Control Panel with Authentication -->
+                    <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 pt-4 border-t-2 border-deep-brown/20">
+                        <!-- Bottom Left: Authentication (Flex-wrapped and responsive) -->
+                        <div class="flex flex-row items-center gap-2.5 w-full md:w-auto">
+                            <input type="text" id="sms-auth-code" placeholder="SMS Code" 
+                                   class="border-4 border-deep-brown bg-white px-4 h-14 rounded-xl font-mono font-bold text-sm focus:outline-none focus:border-vibrant-orange w-full sm:w-36 shadow-[4px_4px_0px_#501A0D] box-border min-w-0">
+                            <button type="button" onclick="sendAuthSms()" class="brutalist-btn bg-lavender-pink text-deep-brown font-display font-extrabold uppercase px-5 h-14 rounded-xl text-xs sm:text-sm flex-grow sm:flex-grow-0 flex items-center justify-center box-border shrink-0">Send Code</button>
+                        </div>
+                        <!-- Bottom Right: Action controls -->
+                        <div class="flex flex-row gap-3 w-full md:w-auto justify-end">
+                            <button type="button" onclick="toggleComposer()" class="brutalist-btn bg-soft-salmon text-deep-brown font-display font-extrabold uppercase px-5 h-14 rounded-xl text-xs sm:text-sm flex-grow md:flex-grow-0 flex items-center justify-center box-border">Cancel</button>
+                            <button type="submit" id="submit-btn" class="brutalist-btn bg-mustard text-deep-brown font-display font-extrabold uppercase px-6 h-14 rounded-xl text-xs sm:text-sm flex-grow md:flex-grow-0 flex items-center justify-center box-border">Publish Entry</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Post Entry Timeline Feed Container (Styled as a responsive Masonry layout) -->
+            <div id="timeline-container" class="masonry-grid select-text">
+                <!-- Dynamic card items generate here -->
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Full Screen Details Card Popout Overlay Modal -->
+    <div id="overlay-container" class="no-print fixed inset-0 bg-deep-brown/85 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 overflow-y-auto">
+        <div class="brutalist-card bg-warm-cream max-w-4xl w-full p-6 md:p-8 rounded-3xl relative my-8 max-h-[90vh] overflow-y-auto no-scrollbar">
+            <!-- Modal Header Toolbar -->
+            <div class="flex justify-between items-center border-b-4 border-deep-brown pb-3 mb-6 sticky top-0 bg-warm-cream z-10 py-1">
+                <span class="font-display font-black text-vibrant-orange text-lg uppercase tracking-tight">Post Detail Inspect</span>
+                
+                <div class="flex items-center gap-4">
+                    <!-- Embedded Local Accessibility Control Row inside modal header -->
+                    <div class="flex items-center gap-1.5 bg-lavender-pink/30 border-2 border-deep-brown p-1 rounded-xl">
+                        <button class="scale-btn" style="width: 22px; height: 22px; font-size: 11px !important;" onclick="adjustFontScale(-0.05)">−</button>
+                        <button class="scale-btn" style="width: 22px; height: 22px; font-size: 11px !important;" onclick="adjustFontScale(0.05)">+</button>
+                    </div>
+                    <button onclick="closePostOverlay()" class="text-deep-brown hover:text-vibrant-orange font-display font-black text-2xl px-2">✕</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Zoom Container Node -->
+            <div id="overlay-detail-content" class="select-text">
+                <!-- Populated dynamically via openPostOverlay -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Neo-Brutalist Confirmation Modal -->
+    <div id="modal-container" class="no-print fixed inset-0 bg-deep-brown/70 z-50 flex items-center justify-center hidden p-4">
+        <div class="brutalist-card bg-warm-cream max-w-md w-full p-6 rounded-2xl">
+            <h3 class="font-display font-extrabold text-2xl text-vibrant-orange uppercase tracking-tight mb-3">⚠️ Critical Action</h3>
+            <p class="font-bold text-sm mb-6 leading-relaxed">Are you absolutely sure you want to delete this leadership record? This action cannot be reversed and will update the local cache immediately.</p>
+            <div class="flex gap-3 justify-end">
+                <button onclick="closeConfirmationModal()" class="brutalist-btn bg-soft-salmon text-deep-brown font-display font-bold uppercase px-5 py-2 rounded-xl">No, Retain Entry</button>
+                <button id="modal-confirm-btn" class="brutalist-btn bg-vibrant-orange text-white font-display font-bold uppercase px-5 py-2 rounded-xl">Yes, Purge Entry</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Area -->
+    <div id="toast-container" class="no-print"></div>
+
+    <script>
+        let entries = [];
+        let selectedMediaBase64 = null;
+        let selectedMediaType = null;
+        let activeDeletionId = null;
+        let fontScale = 1.0; 
+
+        let filterStartDate = null;
+        let filterEndDate = null;
+        let calendarYear = 2026;
+        let calendarMonth = 5; 
+        let hoverDate = null;
+
+        // Security key code parameter
+        let activeSmsCode = null;
+
+        // Default default mockup image placeholder
+        const defaultCoverBase64 = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80";
+
+        // Default layout parameters using real-world design leadership quotes
+        const defaultEntries = [
+            {
+                id: "mock-1",
+                date: "2026-05-20",
+                title: "Launching Design System v3 with System-Scale Architecture",
+                copy: "We navigated a complex migration sequence across five distinct scaling product nodes. Aligning the visual boundaries of Bricolage display weights required absolute cross-team alignment. The team experienced initial cognitive friction, but structural automation eliminated our spacing errors.",
+                insight: "Perfect visual alignment is achieved by writing production-level code in sync with designers, rather than handing off rigid static templates.",
+                goal: "Establish 100% components-to-code synchronicity in our staging testing pipelines before the Q4 build begins.",
+                different: "Deploy automated visual regression tests into standard CI channels to prevent design shifts.",
+                tags: ["leadership", "ux", "metrics"],
+                confidence: 5,
+                communication: 4,
+                contribution: 5,
+                decisions: 4,
+                energy: 5,
+                media: defaultCoverBase64,
+                mediaType: "image/jpeg",
+                aiQuote: "Good design is as little design as possible. — Dieter Rams"
+            }
+        ];
+
+        window.onload = function() {
+            const savedEntries = localStorage.getItem("diary-entries");
+            if (savedEntries) {
+                entries = JSON.parse(savedEntries);
+            } else {
+                entries = [...defaultEntries];
+                saveEntriesToLocalStorage();
+            }
+
+            renderTimeline();
+            updateSidebarStats();
+            setupResizableLayout();
+            updateFontScaleUI(); 
+            renderCalendar(); 
+        }
+
+        function updateSidebarStats() {
+            if (!entries || entries.length === 0) {
+                // Reset stats to dashes if empty
+                document.getElementById('avg-confidence').innerText = "-";
+                document.getElementById('avg-communication').innerText = "-";
+                document.getElementById('avg-contribution').innerText = "-";
+                document.getElementById('avg-decisions').innerText = "-";
+                document.getElementById('avg-energy').innerText = "-";
+                
+                const tagsContainer = document.getElementById('sidebar-tags');
+                if (tagsContainer) {
+                    tagsContainer.innerHTML = '<span class="text-[11px] font-bold opacity-60">No entries recorded.</span>';
+                }
+                return;
+            }
+
+            // Calculate live totals
+            let totalConfidence = 0;
+            let totalCommunication = 0;
+            let totalContribution = 0;
+            let totalDecisions = 0;
+            let totalEnergy = 0;
+
+            entries.forEach(e => {
+                totalConfidence += Number(e.confidence || 0);
+                totalCommunication += Number(e.communication || 0);
+                totalContribution += Number(e.contribution || 0);
+                totalDecisions += Number(e.decisions || 0);
+                totalEnergy += Number(e.energy || 0);
+            });
+
+            const count = entries.length;
+            document.getElementById('avg-confidence').innerText = (totalConfidence / count).toFixed(1);
+            document.getElementById('avg-communication').innerText = (totalCommunication / count).toFixed(1);
+            document.getElementById('avg-contribution').innerText = (totalContribution / count).toFixed(1);
+            document.getElementById('avg-decisions').innerText = (totalDecisions / count).toFixed(1);
+            document.getElementById('avg-energy').innerText = (totalEnergy / count).toFixed(1);
+
+            // Aggregate tag occurrences dynamically across all active entries
+            const tagsMap = {};
+            entries.forEach(e => {
+                if (e.tags && Array.isArray(e.tags)) {
+                    e.tags.forEach(tag => {
+                        const cleanTag = tag.trim().toLowerCase();
+                        if (cleanTag) {
+                            tagsMap[cleanTag] = (tagsMap[cleanTag] || 0) + 1;
+                        }
+                    });
+                }
+            });
+
+            // Sort tags by frequency of use
+            const sortedTags = Object.keys(tagsMap).sort((a, b) => tagsMap[b] - tagsMap[a]);
+            const tagsContainer = document.getElementById('sidebar-tags');
+            
+            if (tagsContainer) {
+                if (sortedTags.length === 0) {
+                    tagsContainer.innerHTML = '<span class="text-[11px] font-bold opacity-60">No tags recorded.</span>';
+                } else {
+                    tagsContainer.innerHTML = sortedTags.map(tag => `
+                        <button onclick="filterByTag('${tag}')" class="bg-lavender-pink border-2 border-deep-brown text-[10px] font-bold px-2 py-0.5 rounded-lg hover:bg-vibrant-orange hover:text-white hover:translate-y-[-1px] transition-all duration-75 shadow-[1.5px_1.5px_0px_#501A0D]">
+                            #${tag} (${tagsMap[tag]})
+                        </button>
+                    `).join('');
+                }
+            }
+        }
+
+        // Contrast modifier function
+        function toggleContrast() {
+            document.body.classList.toggle('high-contrast');
+            const isHigh = document.body.classList.contains('high-contrast');
+            spawnToast(
+                "Contrast Adjusted", 
+                isHigh ? "High-contrast access override active." : "Standard system theme restored."
+            );
+        }
+
+        function showDesc(type) {
+            const desc = document.getElementById(type + '-desc');
+            if (desc) desc.classList.add('active');
+        }
+
+        function hideDesc(type) {
+            const desc = document.getElementById(type + '-desc');
+            if (desc) desc.classList.remove('active');
+        }
+
+        // Typographic scale modifiers
+        function updateFontScaleUI() {
+            document.documentElement.style.setProperty('--font-scale', fontScale);
+            const displayBtn = document.querySelectorAll('.scale-display');
+            displayBtn.forEach(btn => {
+                btn.innerText = Math.round(fontScale * 100) + '%';
+            });
+        }
+
+        function adjustFontScale(delta) {
+            fontScale = Math.min(Math.max(fontScale + delta, 0.7), 2.0); 
+            updateFontScaleUI();
+            spawnToast("Scale Adjusted", `Global scale set to ${Math.round(fontScale * 100)}%.`);
+        }
+
+        function resetFontScale() {
+            fontScale = 1.0;
+            updateFontScaleUI();
+            spawnToast("Scale Reset", "Global scale reset to 100%.");
+        }
+
+        function toggleDateFilter() {
+            const panel = document.getElementById('date-filter-panel');
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                renderCalendar();
+                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                panel.classList.add('hidden');
+            }
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-days-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById('calendar-month-year').innerText = `${months[calendarMonth]} ${calendarYear}`;
+
+            const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+            const totalDays = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                grid.appendChild(emptyCell);
+            }
+
+            for (let day = 1; day <= totalDays; day++) {
+                const dateString = `${calendarYear}-${String(calendarMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                
+                const dayBtn = document.createElement('button');
+                dayBtn.type = 'button';
+                dayBtn.innerText = day;
+                dayBtn.className = "border-2 border-deep-brown rounded-lg font-mono font-black text-xs py-2 transition-all focus:outline-none flex justify-center items-center h-10 w-full";
+
+                let isSelectedStart = (filterStartDate === dateString);
+                let isSelectedEnd = (filterEndDate === dateString);
+                let isInRange = false;
+                let isHoveredRange = false;
+
+                if (filterStartDate && filterEndDate) {
+                    isInRange = (dateString > filterStartDate && dateString < filterEndDate);
+                } else if (filterStartDate && hoverDate) {
+                    isHoveredRange = (dateString > filterStartDate && dateString <= hoverDate);
+                }
+
+                if (isSelectedStart || isSelectedEnd) {
+                    dayBtn.className += " bg-vibrant-orange text-white shadow-[1px_1px_0px_#501A0D]";
+                } else if (isInRange) {
+                    dayBtn.className += " bg-lavender-pink text-deep-brown";
+                } else if (isHoveredRange) {
+                    dayBtn.className += " bg-soft-salmon text-deep-brown";
+                } else {
+                    dayBtn.className += " bg-white text-deep-brown hover:bg-mustard/20 shadow-[2px_2px_0px_#501A0D] hover:translate-y-[-1px]";
+                }
+
+                dayBtn.onclick = () => selectCalendarDate(dateString);
+                dayBtn.onmouseenter = () => {
+                    if (filterStartDate && !filterEndDate) {
+                        hoverDate = dateString;
+                        renderCalendar();
+                    }
+                };
+                dayBtn.onmouseleave = () => {
+                    if (filterStartDate && !filterEndDate) {
+                        hoverDate = null;
+                        renderCalendar();
+                    }
+                };
+
+                grid.appendChild(dayBtn);
+            }
+
+            document.getElementById('filter-start-display').innerText = filterStartDate || "-";
+            document.getElementById('filter-end-display').innerText = filterEndDate || "-";
+        }
+
+        function prevMonth() {
+            calendarMonth--;
+            if (calendarMonth < 0) {
+                calendarMonth = 11;
+                calendarYear--;
+            }
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            calendarMonth++;
+            if (calendarMonth > 11) {
+                calendarMonth = 0;
+                calendarYear++;
+            }
+            renderCalendar();
+        }
+
+        function selectCalendarDate(dateString) {
+            if (!filterStartDate || (filterStartDate && filterEndDate)) {
+                filterStartDate = dateString;
+                filterEndDate = null;
+                hoverDate = null;
+            } else if (filterStartDate && !filterEndDate) {
+                if (dateString < filterStartDate) {
+                    filterStartDate = dateString;
+                    hoverDate = null;
+                } else {
+                    filterEndDate = dateString;
+                }
+            }
+            renderCalendar();
+            filterEntries();
+            spawnToast("Calendar Update", `Active search window mapped.`);
+        }
+
+        function setDatePreset(presetType) {
+            const todayObj = new Date();
+            const formatStr = (d) => d.toISOString().split('T')[0];
+
+            if (presetType === 'today') {
+                filterStartDate = formatStr(todayObj);
+                filterEndDate = formatStr(todayObj);
+            } else if (presetType === 'week') {
+                const startPoint = new Date();
+                startPoint.setDate(todayObj.getDate() - 7);
+                filterStartDate = formatStr(startPoint);
+                filterEndDate = formatStr(todayObj);
+            } else if (presetType === 'month') {
+                const startMonth = new Date(todayObj.getFullYear(), todayObj.getMonth(), 1);
+                filterStartDate = formatStr(startMonth);
+                filterEndDate = formatStr(todayObj);
+            }
+
+            const pivot = new Date(filterEndDate);
+            calendarYear = pivot.getFullYear();
+            calendarMonth = pivot.getMonth();
+
+            renderCalendar();
+            filterEntries();
+            spawnToast("Preset Applied", "Ecosystem synchronized to chosen timeframe.");
+        }
+
+        function clearDateFilter() {
+            filterStartDate = null;
+            filterEndDate = null;
+            hoverDate = null;
+            renderCalendar();
+            filterEntries();
+            spawnToast("Filters Purged", "Full repository timeline restored.");
+        }
+
+        // Draggable Border Panel resizer control script
+        function setupResizableLayout() {
+            const sidebar = document.getElementById('sidebar');
+            const resizer = document.getElementById('resizer');
+            const container = document.getElementById('app-container');
+
+            let isResizing = false;
+
+            resizer.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                document.body.style.cursor = 'col-resize';
+                document.body.classList.add('select-none');
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+                const containerRect = container.getBoundingClientRect();
+                let newWidth = e.clientX - containerRect.left;
+                
+                const minWidth = 260;
+                const maxWidth = 500;
+                if (newWidth < minWidth) newWidth = minWidth;
+                if (newWidth > maxWidth) newWidth = maxWidth;
+
+                sidebar.style.width = `${newWidth}px`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isResizing) {
+                    isResizing = false;
+                    document.body.style.cursor = '';
+                    document.body.classList.remove('select-none');
+                }
+            });
+
+            // Touch support for resizability
+            resizer.addEventListener('touchstart', (e) => {
+                isResizing = true;
+            });
+            document.addEventListener('touchmove', (e) => {
+                if (!isResizing) return;
+                const touch = e.touches[0];
+                const containerRect = container.getBoundingClientRect();
+                let newWidth = touch.clientX - containerRect.left;
+                
+                const minWidth = 260;
+                const maxWidth = 500;
+                if (newWidth < minWidth) newWidth = minWidth;
+                if (newWidth > maxWidth) newWidth = maxWidth;
+
+                sidebar.style.width = `${newWidth}px`;
+            });
+            document.addEventListener('touchend', () => {
+                isResizing = false;
+            });
+        }
+
+        // Interactive range value display updating helper
+        function updateSliderVal(metric, val) {
+            document.getElementById(`val-${metric}`).innerText = `${val} / 5`;
+        }
+
+        function saveEntriesToLocalStorage() {
+            localStorage.setItem("diary-entries", JSON.stringify(entries));
+        }
+
+        function toggleComposer() {
+            const panel = document.getElementById('composer-panel');
+            const arrow = document.getElementById('composer-arrow');
+            const form = document.getElementById('entry-form');
+            
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+                panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                panel.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+                form.reset();
+                clearMediaUpload();
+                document.getElementById('entry-edit-id').value = "";
+                document.getElementById('form-heading').innerText = "Drafting New Entry";
+                document.getElementById('submit-btn').innerText = "Publish Entry";
+
+                // Reset sliders visually
+                const metrics = ['confidence', 'communication', 'contribution', 'decisions', 'energy'];
+                metrics.forEach(m => {
+                    document.getElementById(`metric-${m}`).value = 3;
+                    updateSliderVal(m, 3);
+                });
+            }
+        }
+
+        // Preview attachments
+        function previewMediaAttachment(event) {
+            const file = event.target.files[0];
+            const area = document.getElementById('media-preview-area');
+            const clearBtn = document.getElementById('clear-media-btn');
+            
+            if (!file) return;
+            selectedMediaType = file.type;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                selectedMediaBase64 = e.target.result;
+                area.innerHTML = "";
+                area.classList.remove('hidden');
+                clearBtn.classList.remove('hidden');
+
+                if (file.type.startsWith('image/')) {
+                    area.innerHTML = `<img src="${selectedMediaBase64}" class="max-h-40 object-contain rounded-lg border-2 border-deep-brown shadow-[2px_2px_0px_#501A0D]">`;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearMediaUpload() {
+            document.getElementById('post-media').value = "";
+            const area = document.getElementById('media-preview-area');
+            area.innerHTML = "";
+            area.classList.add('hidden');
+            document.getElementById('clear-media-btn').classList.add('hidden');
+            selectedMediaBase64 = null;
+            selectedMediaType = null;
+        }
+
+        async function fetchAIQuote(title, copy, insight) {
+            const apiKey = ""; 
+            if (!apiKey) {
+                return simulateDesignQuote(title, copy);
+            }
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const systemPrompt = "Act as an expert design research assistant. Your task is to use Google Search to find a real, historically accurate, and inspirational quote by a real famous designer, developer, product leader, or visionary (e.g., Dieter Rams, Jony Ive, Steve Jobs, Don Norman, Julie Zhuo, John Maeda, Grace Hopper, etc.) that is highly relevant to the provided journal entry theme. The quote MUST be authentic and documented (not made up). Return ONLY the quote, formatted strictly as: [Quote Text] — [Author Name]. Do not include quotation marks in your outer response. Keep it under two sentences.";
+            const userQuery = `Find an authentic, real design/leadership quote matching the theme of this entry:\nTitle: ${title}\nCopy: ${copy}\nInsight: ${insight}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) throw new Error("API Network response was not ok");
+                const data = await response.json();
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    return data.candidates[0].content.parts[0].text.trim();
+                }
+            } catch (error) {
+                console.warn("AI Generation failed, falling back to simulated quotes: ", error);
+            }
+            return simulateDesignQuote(title, copy);
+        }
+
+        // Client-side fallback listing real, historical quotes to prevent empty states
+        function simulateDesignQuote(title, copy) {
+            const fallbackQuotes = [
+                "Make it simple, but significant. — Don Draper",
+                "Design is not just what it looks like and feels like. Design is how it works. — Steve Jobs",
+                "Simplicity is the ultimate sophistication. — Leonardo da Vinci",
+                "Great design is making something memorable and meaningful. — Dieter Rams",
+                "The details are not the details. They make the design. — Charles Eames",
+                "Good design is obvious. Great design is transparent. — Joe Sparano",
+                "Usability is about people and how they understand and use things. — Don Norman",
+                "If you think good design is expensive, you should look at the cost of bad design. — Ralf Speth"
+            ];
+            const idx = (title.length + copy.length) % fallbackQuotes.length;
+            return fallbackQuotes[idx];
+        }
+
+        // Custom interactive SMS transmitter simulator
+        function sendAuthSms() {
+            const code = Math.floor(100000 + Math.random() * 900000).toString();
+            activeSmsCode = code;
+            // Silent log to the developer console for private copy-pasting during authoring tests
+            console.log("[Verification Console Log] Security code sent:", code);
+            spawnToast("SMS Dispatched", "A verification security code has been sent to (415) 341-7416.");
+        }
+
+        // Publish & Submission controls
+        async function handlePostSubmit(event) {
+            event.preventDefault();
+
+            // Verify the authentication SMS code entry before saving
+            const enteredCode = document.getElementById('sms-auth-code').value.trim();
+            if (!activeSmsCode) {
+                spawnToast("Verification required", "Please click 'Send Code' to receive SMS authorization first.");
+                return;
+            }
+            if (enteredCode !== activeSmsCode) {
+                spawnToast("Auth Failed", "The code entered does not match. Please verify your entries.");
+                return;
+            }
+
+            const editId = document.getElementById('entry-edit-id').value;
+            const title = document.getElementById('post-title').value;
+            const copy = document.getElementById('post-copy').value;
+            const insight = document.getElementById('post-insight').value;
+            const goal = document.getElementById('post-goal').value;
+            const different = document.getElementById('post-different').value;
+            
+            const rawTags = document.getElementById('post-tags').value;
+            const tags = rawTags ? rawTags.split(',').map(t => t.trim().toLowerCase()).filter(t => t !== "") : [];
+
+            // Read slider values dynamically
+            const confidence = parseInt(document.getElementById('metric-confidence').value);
+            const communication = parseInt(document.getElementById('metric-communication').value);
+            const contribution = parseInt(document.getElementById('metric-contribution').value);
+            const decisions = parseInt(document.getElementById('metric-decisions').value);
+            const energy = parseInt(document.getElementById('metric-energy').value);
+
+            let currentMedia = selectedMediaBase64;
+            let currentMediaType = selectedMediaType;
+
+            if (editId) {
+                const existing = entries.find(e => e.id === editId);
+                if (!currentMedia && existing) {
+                    currentMedia = existing.media;
+                    currentMediaType = existing.mediaType;
+                }
+            }
+
+            // Enforce Image card required parameter check
+            if (!currentMedia) {
+                spawnToast("Submission Error", "You must attach a card cover picture before publishing.");
+                return;
+            }
+
+            const dateStr = new Date().toISOString().split('T')[0];
+            const tempId = editId || `entry-${Date.now()}`;
+
+            const newEntry = {
+                id: tempId,
+                date: editId ? (entries.find(e => e.id === editId)?.date || dateStr) : dateStr,
+                title,
+                copy,
+                insight,
+                goal,
+                different,
+                tags,
+                confidence,
+                communication,
+                contribution,
+                decisions,
+                energy,
+                media: currentMedia,
+                mediaType: currentMediaType,
+                aiQuote: editId ? (entries.find(e => e.id === editId)?.aiQuote || "Generating design advice...") : "Generating design advice..."
+            };
+
+            if (editId) {
+                const idx = entries.findIndex(e => e.id === editId);
+                entries[idx] = newEntry;
+                spawnToast("Record Modified", "The leadership record has been edited locally.");
+            } else {
+                entries.unshift(newEntry);
+                spawnToast("Record Published", "Draft added. Fetching dynamic AI leadership quote...");
+            }
+
+            // Clear authentication entry fields on submission
+            activeSmsCode = null;
+            document.getElementById('sms-auth-code').value = "";
+
+            toggleComposer();
+            saveEntriesToLocalStorage();
+            renderTimeline();
+            updateSidebarStats();
+
+            // Run async API query in background to retrieve Quote details
+            if (!editId) {
+                const quote = await fetchAIQuote(title, copy, insight);
+                const entryToUpdate = entries.find(e => e.id === tempId);
+                if (entryToUpdate) {
+                    entryToUpdate.aiQuote = quote;
+                    saveEntriesToLocalStorage();
+                    renderTimeline();
+                }
+            }
+        }
+
+        function editPost(id) {
+            closePostOverlay(); // close view overlay if editing
+            const entry = entries.find(e => e.id === id);
+            if (!entry) return;
+
+            const panel = document.getElementById('composer-panel');
+            if (panel.classList.contains('hidden')) {
+                toggleComposer();
+            }
+
+            document.getElementById('entry-edit-id').value = entry.id;
+            document.getElementById('form-heading').innerText = "Editing Diary Entry";
+            document.getElementById('submit-btn').innerText = "Save Changes";
+
+            document.getElementById('post-title').value = entry.title;
+            document.getElementById('post-copy').value = entry.copy;
+            document.getElementById('post-insight').value = entry.insight;
+            document.getElementById('post-goal').value = entry.goal;
+            document.getElementById('post-different').value = entry.different;
+            document.getElementById('post-tags').value = entry.tags.join(', ');
+
+            // Populate sliders
+            document.getElementById('metric-confidence').value = entry.confidence;
+            updateSliderVal('confidence', entry.confidence);
+
+            document.getElementById('metric-communication').value = entry.communication;
+            updateSliderVal('communication', entry.communication);
+
+            document.getElementById('metric-contribution').value = entry.contribution;
+            updateSliderVal('contribution', entry.contribution);
+
+            document.getElementById('metric-decisions').value = entry.decisions;
+            updateSliderVal('decisions', entry.decisions);
+
+            document.getElementById('metric-energy').value = entry.energy;
+            updateSliderVal('energy', entry.energy);
+
+            if (entry.media) {
+                const area = document.getElementById('media-preview-area');
+                area.innerHTML = "";
+                area.classList.remove('hidden');
+                document.getElementById('clear-media-btn').classList.remove('hidden');
+                selectedMediaBase64 = entry.media;
+                selectedMediaType = entry.mediaType;
+
+                area.innerHTML = `<img src="${entry.media}" class="max-h-40 object-contain rounded-lg border-2 border-deep-brown">`;
+            }
+        }
+
+        // Confirmation modals
+        function triggerDeleteConfirmation(id) {
+            closePostOverlay(); // close popup if deleting
+            activeDeletionId = id;
+            const container = document.getElementById('modal-container');
+            container.classList.remove('hidden');
+            
+            document.getElementById('modal-confirm-btn').onclick = function() {
+                executePostDeletion();
+            }
+        }
+
+        function closeConfirmationModal() {
+            document.getElementById('modal-container').classList.add('hidden');
+            activeDeletionId = null;
+        }
+
+        function executePostDeletion() {
+            if (!activeDeletionId) return;
+            entries = entries.filter(e => e.id !== activeDeletionId);
+            saveEntriesToLocalStorage();
+            closeConfirmationModal();
+            renderTimeline();
+            updateSidebarStats();
+            spawnToast("Record Removed", "Diary entry has been successfully purged.");
+        }
+
+        // Export active layouts cleanly
+        function exportData(format) {
+            let dataStr = "";
+            let fileType = "";
+            let fileName = "";
+
+            if (format === 'json') {
+                dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entries, null, 2));
+                fileType = "application/json";
+                fileName = "leadership-diary-export.json";
+            } else {
+                let mdContent = `# Amanda Valverde // Leadership Diary Export\n\n`;
+                entries.forEach(e => {
+                    mdContent += `---\ntitle: "${e.title}"\ndate: ${e.date}\ntags: ${e.tags.join(', ')}\n---\n\n`;
+                    mdContent += `> "${e.aiQuote}"\n\n`;
+                    mdContent += `### Reflections & Context\n${e.copy}\n\n`;
+                    mdContent += `### System Metrics\n`;
+                    mdContent += `* Confidence: ${e.confidence}/5\n* Communication: ${e.communication}/5\n* Contribution: ${e.contribution}/5\n* Decisions: ${e.decisions}/5\n* Energy: ${e.energy}/5\n\n`;
+                    mdContent += `* **Key Learning:** ${e.insight}\n`;
+                    mdContent += `* **Actionable Goal:** ${e.goal}\n`;
+                    mdContent += `* **Change Protocol:** ${e.different}\n\n`;
+                });
+                dataStr = "data:text/markdown;charset=utf-8," + encodeURIComponent(mdContent);
+                fileType = "text/markdown";
+                fileName = "leadership-diary-posts.md";
+            }
+
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", fileName);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+
+            spawnToast("Data Exported", `Data packaged as ${format.toUpperCase()} for Git commitment.`);
+        }
+
+        function exportPostToPDF() {
+            spawnToast("PDF Print Sync", "Preparing print layout view. Use system Print to PDF controls.");
+            setTimeout(() => {
+                window.print();
+            }, 600);
+        }
+
+        function filterEntries() {
+            renderTimeline();
+        }
+
+        function filterByTag(tag) {
+            document.getElementById('tag-search').value = tag;
+            renderTimeline();
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = "";
+
+            const query = document.getElementById('tag-search').value.toLowerCase().trim();
+            const filtered = entries.filter(e => {
+                const matchesSearch = !query || 
+                                      e.title.toLowerCase().includes(query) || 
+                                      e.copy.toLowerCase().includes(query) ||
+                                      e.tags.some(t => t.toLowerCase().includes(query));
+
+                const matchesDate = (!filterStartDate || e.date >= filterStartDate) &&
+                                    (!filterEndDate || e.date <= filterEndDate);
+
+                return matchesSearch && matchesDate;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="brutalist-card bg-warm-cream p-12 text-center rounded-2xl w-full col-span-full">
+                        <span class="text-4xl">🔎</span>
+                        <h3 class="font-display font-extrabold text-lg text-deep-brown mt-3">No Leadership Records Found</h3>
+                        <p class="text-xs font-bold text-deep-brown/60 mt-1">Try adjusting your active filters or clear the calendar limits.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Map layout masonry card rendering with dual-state expansion triggers
+            filtered.forEach(entry => {
+                const item = document.createElement('div');
+                item.className = "masonry-item select-none";
+                item.id = `timeline-item-${entry.id}`;
+
+                const tagList = entry.tags.map(t => `
+                    <span class="bg-soft-salmon/30 border border-deep-brown text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+                        #${t}
+                    </span>
+                `).join('');
+
+                let quoteHtml = "";
+                if (entry.aiQuote) {
+                    const isPending = entry.aiQuote === "Generating design advice...";
+                    let quoteText = entry.aiQuote;
+                    let authorText = "Design Leadership Insight";
+                    
+                    if (!isPending) {
+                        let cleanedQuote = entry.aiQuote.replace(/^["'“](.*)["'”]$/, '$1').trim();
+                        let splitIdx = cleanedQuote.lastIndexOf("—");
+                        if (splitIdx === -1) splitIdx = cleanedQuote.lastIndexOf("–");
+                        if (splitIdx === -1) splitIdx = cleanedQuote.lastIndexOf("-");
+                        
+                        if (splitIdx !== -1) {
+                            quoteText = cleanedQuote.substring(0, splitIdx).trim();
+                            authorText = cleanedQuote.substring(splitIdx + 1).trim();
+                        } else {
+                            quoteText = cleanedQuote;
+                        }
+                        quoteText = quoteText.replace(/^["'“](.*)["'”]$/, '$1').trim();
+                    }
+
+                    quoteHtml = `
+                        <div class="bg-lavender-pink border-4 border-deep-brown p-4 md:p-6 rounded-2xl relative shadow-[4px_4px_0px_#501A0D] mb-4">
+                            <span class="absolute top-2 right-4 text-2xl text-vibrant-orange">✦</span>
+                            <p class="font-display font-black text-base md:text-lg text-deep-brown leading-tight italic ${isPending ? 'ai-loading-pulse' : ''}">
+                                ${isPending ? quoteText : `“${quoteText}”`}
+                            </p>
+                            <span class="block text-[9px] font-mono uppercase tracking-widest text-vibrant-orange mt-2">${authorText}</span>
+                        </div>
+                    `;
+                }
+
+                item.innerHTML = `
+                    <!-- 1. COMPACT GRID STATE (Standard Masonry Thumb) -->
+                    <div class="compact-view group relative bg-white border-4 border-deep-brown rounded-3xl overflow-hidden shadow-[4px_4px_0px_#501A0D] hover:shadow-[6px_6px_0px_#501A0D] transition-all duration-300 transform hover:-translate-y-1 cursor-pointer">
+                        <!-- Card cover Image -->
+                        <img src="${entry.media}" alt="${entry.title}" class="w-full h-auto object-cover min-h-[160px] max-h-[340px]">
+
+                        <!-- Tactical Cover Information Label (Static) -->
+                        <div class="p-4 bg-warm-cream border-t-2 border-deep-brown">
+                            <h4 class="font-display font-bold text-sm text-deep-brown line-clamp-1">${entry.title}</h4>
+                            <span class="text-[10px] font-mono uppercase text-vibrant-orange font-bold mt-1 block">${entry.date}</span>
+                        </div>
+
+                        <!-- Hover Playful Overlay Screen (Reveals details and popout icon) -->
+                        <div class="absolute inset-0 bg-deep-brown/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-between p-5">
+                            
+                            <!-- Header Info -->
+                            <div class="flex items-center gap-2.5">
+                                <img src="Facetune_26-10-2025-16-39-45.jpg" class="w-8 h-8 object-cover rounded-full border border-white" onerror="this.onerror=null; this.src='https://placehold.co/100x100/FBCBFA/501A0D?text=AV'">
+                                <div>
+                                    <span class="block text-xs font-bold text-white leading-none">Amanda Valverde</span>
+                                    <span class="text-[9px] font-mono text-soft-salmon uppercase mt-0.5 block">Author</span>
+                                </div>
+                            </div>
+
+                            <!-- Mid title -->
+                            <div class="my-auto py-2">
+                                <h3 class="font-display font-extrabold text-base text-white uppercase tracking-tight leading-tight line-clamp-3">${entry.title}</h3>
+                            </div>
+
+                            <!-- Trigger Overlay Pop-out Controls -->
+                            <div class="flex justify-between items-center pt-2 border-t border-white/20">
+                                <span class="text-[9px] font-mono uppercase text-lavender-pink">${entry.date}</span>
+                                
+                                <button class="popout-trigger bg-vibrant-orange hover:bg-mustard text-white p-2 rounded-xl border-2 border-white shadow-[2px_2px_0px_white] hover:translate-y-[-1px] transition-all" title="Pop out overlay">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h-4m4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. EXPANDED PORTAL STATE (Detailed sequential view spanning entire feed layout) -->
+                    <div class="expanded-view relative bg-white border-4 border-deep-brown rounded-3xl p-6 md:p-8 shadow-[8px_8px_0px_#501A0D]">
+                        <!-- Absolute Top Right Corner Collapse Symbol -->
+                        <button onclick="event.stopPropagation(); collapseInlinePost('${entry.id}')" class="absolute top-4 right-4 brutalist-btn bg-white text-deep-brown hover:bg-lavender-pink text-base font-black z-10 w-10 h-10 rounded-xl flex items-center justify-center shadow-[2px_2px_0px_#501A0D]" title="Collapse Card">▲</button>
+                        
+                        <article class="flex flex-col gap-5">
+                            <!-- Header Controls -->
+                            <div class="flex justify-between items-start gap-4 flex-wrap border-b-2 border-deep-brown/10 pb-4 pr-12 md:pr-14">
+                                <div class="flex items-center gap-3 min-w-0 max-w-full md:max-w-[70%]">
+                                    <img src="Facetune_26-10-2025-16-39-45.jpg" class="w-10 h-10 object-cover rounded-full border-2 border-deep-brown shadow-[1px_1px_0px_#501A0D]" onerror="this.onerror=null; this.src='https://placehold.co/100x100/FBCBFA/501A0D?text=AV'">
+                                    <div class="min-w-0">
+                                        <h3 class="font-display font-extrabold text-lg md:text-xl uppercase text-deep-brown tracking-tight leading-tight break-words">${entry.title}</h3>
+                                        <span class="text-[10px] font-mono tracking-widest uppercase text-vibrant-orange font-bold mt-1.5 block">${entry.date}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-1.5">
+                                    <button onclick="event.stopPropagation(); editPost('${entry.id}')" class="brutalist-btn bg-mustard text-deep-brown p-1.5 rounded-lg text-xs font-bold" title="Edit Entry">📝 Edit</button>
+                                    <button onclick="event.stopPropagation(); triggerDeleteConfirmation('${entry.id}')" class="brutalist-btn bg-soft-salmon text-deep-brown p-1.5 rounded-lg text-xs font-bold" title="Delete Entry">✕ Delete</button>
+                                </div>
+                            </div>
+
+                            <!-- AI Quote Section -->
+                            ${quoteHtml}
+
+                            <!-- Cover Image -->
+                            <div class="border-4 border-deep-brown rounded-2xl overflow-hidden max-h-96 bg-black flex justify-center">
+                                <img src="${entry.media}" alt="Post cover card Image" class="object-contain max-h-96 w-full">
+                            </div>
+
+                            <!-- Main Copy Narrative -->
+                            <p class="text-sm font-bold leading-relaxed text-deep-brown/90 whitespace-pre-wrap">${entry.copy}</p>
+
+                            <!-- Three Pillars Grid -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-warm-cream/40 border-t-2 border-deep-brown/10 pt-4">
+                                <div class="bg-lavender-pink/20 p-4 border-2 border-deep-brown rounded-2xl shadow-[2px_2px_0px_#501A0D] flex flex-col justify-between">
+                                    <span class="block text-[10px] font-display uppercase tracking-widest text-vibrant-orange font-bold mb-1">Key Learning</span>
+                                    <p class="text-xs font-bold text-deep-brown/95">${entry.insight}</p>
+                                </div>
+                                <div class="bg-mustard/10 p-4 border-2 border-deep-brown rounded-2xl shadow-[2px_2px_0px_#501A0D] flex flex-col justify-between">
+                                    <span class="block text-[10px] font-display uppercase tracking-widest text-mustard font-bold mb-1">Set Goal</span>
+                                    <p class="text-xs font-bold text-deep-brown/95">${entry.goal}</p>
+                                </div>
+                                <div class="bg-soft-salmon/10 p-4 border-2 border-deep-brown rounded-2xl shadow-[2px_2px_0px_#501A0D] flex flex-col justify-between">
+                                    <span class="block text-[10px] font-display uppercase tracking-widest text-soft-salmon font-bold mb-1">Doing Differently</span>
+                                    <p class="text-xs font-bold text-deep-brown/95">${entry.different}</p>
+                                </div>
+                            </div>
+
+                            <!-- Metrics & Tags Metadata Footer -->
+                            <div class="flex flex-wrap items-center justify-between gap-3 border-t-2 border-deep-brown/10 pt-4">
+                                <div class="flex flex-wrap gap-2 text-[10px] font-bold">
+                                    <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Confidence: ${entry.confidence}/5</span>
+                                    <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Comm: ${entry.communication}/5</span>
+                                    <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Contrib: ${entry.contribution}/5</span>
+                                    <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Decisions: ${entry.decisions}/5</span>
+                                    <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Energy: ${entry.energy}/5</span>
+                                </div>
+                                <div class="flex flex-wrap gap-1">
+                                    ${tagList}
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                `;
+
+                // Click engine orchestrating inline expansion vs popup modal
+                item.addEventListener('click', (e) => {
+                    const popoutBtn = e.target.closest('.popout-trigger');
+                    if (popoutBtn) {
+                        e.stopPropagation();
+                        openPostOverlay(entry.id);
+                    } else if (!item.classList.contains('expanded-span')) {
+                        // Expand the card inline across the entire feed columns
+                        item.classList.add('expanded-span');
+                        spawnToast("Card Expanded", "Spanning card to reveal full entry metrics.");
+                    }
+                });
+
+                container.appendChild(item);
+            });
+        }
+
+        // Action helper to manually collapse inline expanded cards back down to grid size
+        function collapseInlinePost(id) {
+            const item = document.getElementById(`timeline-item-${id}`);
+            if (item) {
+                item.classList.remove('expanded-span');
+                spawnToast("Card Collapsed", "Restored masonry grid view layout.");
+            }
+        }
+
+        // Overlay Expand Engine
+        function openPostOverlay(id) {
+            const entry = entries.find(e => e.id === id);
+            if (!entry) return;
+
+            const modal = document.getElementById('overlay-container');
+            const target = document.getElementById('overlay-detail-content');
+
+            let aiBlock = "";
+            if (entry.aiQuote) {
+                const isPending = entry.aiQuote === "Generating design advice...";
+                let quoteText = entry.aiQuote;
+                let authorText = "Design Leadership Insight";
+                
+                if (!isPending) {
+                    let cleanedQuote = entry.aiQuote.replace(/^["'“](.*)["'”]$/, '$1').trim();
+                    let splitIdx = cleanedQuote.lastIndexOf("—");
+                    if (splitIdx === -1) splitIdx = cleanedQuote.lastIndexOf("–");
+                    if (splitIdx === -1) splitIdx = cleanedQuote.lastIndexOf("-");
+                    
+                    if (splitIdx !== -1) {
+                        quoteText = cleanedQuote.substring(0, splitIdx).trim();
+                        authorText = cleanedQuote.substring(splitIdx + 1).trim();
+                    } else {
+                        quoteText = cleanedQuote;
+                    }
+                    quoteText = quoteText.replace(/^["'“](.*)["'”]$/, '$1').trim();
+                }
+
+                aiBlock = `
+                    <div class="bg-lavender-pink border-4 border-deep-brown p-4 md:p-6 rounded-2xl relative shadow-[4px_4px_0px_#501A0D] mb-1">
+                        <span class="absolute top-2 right-4 text-2xl text-vibrant-orange">✦</span>
+                        <p class="font-display font-black text-lg md:text-xl text-deep-brown leading-tight italic ${isPending ? 'ai-loading-pulse' : ''}">
+                            ${isPending ? quoteText : `“${quoteText}”`}
+                        </p>
+                        <span class="block text-[10px] font-mono uppercase tracking-widest text-vibrant-orange mt-2">${authorText}</span>
+                    </div>
+                `;
+            }
+
+            const tagList = entry.tags.map(t => `
+                <span class="bg-soft-salmon/30 border border-deep-brown text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+                    #${t}
+                </span>
+            `).join('');
+
+            target.innerHTML = `
+                <article class="flex flex-col gap-5 select-text">
+                    <!-- Head Section -->
+                    <div class="flex justify-between items-start gap-4 flex-wrap border-b-2 border-deep-brown/10 pb-4">
+                        <div class="flex items-center gap-3">
+                            <img src="Facetune_26-10-2025-16-39-45.jpg" class="w-10 h-10 object-cover rounded-full border-2 border-deep-brown shadow-[1px_1px_0px_#501A0D]" onerror="this.onerror=null; this.src='https://placehold.co/100x100/FBCBFA/501A0D?text=AV'">
+                            <div>
+                                <h3 class="font-display font-extrabold text-xl md:text-2xl uppercase text-deep-brown tracking-tight leading-none">${entry.title}</h3>
+                                <span class="text-[10px] font-mono tracking-widest uppercase text-vibrant-orange font-bold mt-1.5 block">${entry.date}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Toolbar Controls -->
+                        <div class="no-print flex gap-1.5">
+                            <button onclick="editPost('${entry.id}')" class="brutalist-btn bg-mustard text-deep-brown p-1.5 rounded-lg text-xs" title="Edit Entry">📝 Edit</button>
+                            <button onclick="triggerDeleteConfirmation('${entry.id}')" class="brutalist-btn bg-soft-salmon text-deep-brown p-1.5 rounded-lg text-xs" title="Delete Entry">✕ Delete</button>
+                            <button onclick="exportPostToPDF()" class="brutalist-btn bg-white text-deep-brown p-1.5 rounded-lg text-xs" title="Export as PDF">🖨️ PDF</button>
+                        </div>
+                    </div>
+
+                    <!-- AI Quote Header -->
+                    ${aiBlock}
+
+                    <!-- Cover Card Visual Element -->
+                    <div class="border-4 border-deep-brown rounded-2xl overflow-hidden max-h-96 bg-black flex justify-center mb-2">
+                        <img src="${entry.media}" alt="Post cover card Image" class="object-contain max-h-96 w-full">
+                    </div>
+
+                    <!-- Core Copy Narrative -->
+                    <p class="text-sm font-bold leading-relaxed text-deep-brown/90 whitespace-pre-wrap">${entry.copy}</p>
+
+                    <!-- Vertical Grid System for Insights and Protocols -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-warm-cream/40 border-t-2 border-deep-brown/10 pt-4">
+                        <div class="bg-lavender-pink/20 p-4 border-2 border-deep-brown rounded-2xl shadow-[2px_2px_0px_#501A0D] flex flex-col justify-between">
+                            <span class="block text-[10px] font-display uppercase tracking-widest text-vibrant-orange font-bold mb-1">Key Learning</span>
+                            <p class="text-xs font-bold text-deep-brown/95">${entry.insight}</p>
+                        </div>
+                        <div class="bg-mustard/10 p-4 border-2 border-deep-brown rounded-2xl shadow-[2px_2px_0px_#501A0D] flex flex-col justify-between">
+                            <span class="block text-[10px] font-display uppercase tracking-widest text-mustard font-bold mb-1">Set Goal</span>
+                            <p class="text-xs font-bold text-deep-brown/95">${entry.goal}</p>
+                        </div>
+                        <div class="bg-soft-salmon/10 p-4 border-2 border-deep-brown rounded-2xl shadow-[2px_2px_0px_#501A0D] flex flex-col justify-between">
+                            <span class="block text-[10px] font-display uppercase tracking-widest text-soft-salmon font-bold mb-1">Doing Differently</span>
+                            <p class="text-xs font-bold text-deep-brown/95">${entry.different}</p>
+                        </div>
+                    </div>
+
+                    <!-- Bottom alignment lines for metrics metadata and tags -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-t-2 border-deep-brown/10 pt-4">
+                        <div class="flex flex-wrap gap-2 text-[10px] font-bold">
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Confidence: ${entry.confidence}/5</span>
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Comm: ${entry.communication}/5</span>
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Contrib: ${entry.contribution}/5</span>
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Decisions: ${entry.decisions}/5</span>
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Energy: ${entry.energy}/5</span>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-1">
+                            ${tagList}
+                        </div>
+                    </div>
+                </article>
+            `;
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden'); // Lock background scroll
+        }
+
+        function closePostOverlay() {
+            const modal = document.getElementById('overlay-container');
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('overlay-detail-content').innerHTML = "";
+        }
+
+        // Global Alert toast dispatcher
+        function spawnToast(title = "Event Triggered", body = "System dispatch successful.") {
+            let container = document.getElementById('toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toast-container';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-node';
+            toast.innerHTML = `
+                <span style="font-size: 20px;">⚡</span>
+                <div>
+                    <strong style="font-family: var(--font-display); font-size: 12px; text-transform: uppercase; display: block; color: var(--color-deep-brown);">${title}</strong>
+                    <span style="font-size: 12px; color: var(--color-deep-brown);">${body}</span>
+                </div>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.transform = 'translateX(120%)';
+                toast.style.transition = 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1)';
+                setTimeout(() => {
+                    toast.remove();
+                }, 200);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
