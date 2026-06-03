@@ -1247,33 +1247,32 @@
             return fallbackQuotes[idx];
         }
 
-        // Modified SMS generation system targeting (415) 341-7416 securely
+        // SMS Authentication Dispatch targeting Vercel API directly
         async function sendAuthSms() {
             const code = Math.floor(100000 + Math.random() * 900000).toString();
             activeSmsCode = code;
             
-            // Log to developer console as a fallback option
+            // Console log fallback for debugging or local preview
             console.log("[Verification Console Log] Security code generated:", code);
-            
+
             try {
-                // Step 4: Make active network request directly to your Serverless Vercel function
-                const response = await fetch('/api/send-code', {
+                // Hard-coded absolute URL to point your GitHub site to your Vercel Backend
+                const VERCEL_URL = 'https://leadershipdiary.vercel.app';
+                
+                const response = await fetch(`${VERCEL_URL}/api/send-code`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code: code })
                 });
                 
                 if (response.ok) {
-                    spawnToast("SMS Dispatched", "A real verification code has been dispatched to (415) 341-7416.");
+                    spawnToast("SMS Dispatched", "A verification code has been dispatched to your email/phone gateway.");
                 } else {
-                    throw new Error("Local Vercel server offline.");
+                    throw new Error(`Backend request failed with status: ${response.status}`);
                 }
             } catch (error) {
-                // Smooth local fallback context to keep app operational locally
-                console.warn("Serverless API offline. Falling back to console simulation.", error);
-                spawnToast("SMS Dispatched", "A verification security code has been sent to (415) 341-7416.");
+                console.error("Backend error, falling back to local simulation:", error);
+                spawnToast("SMS Dispatched", "A verification security code has been sent. Check the developer console if network failed.");
             }
         }
 
@@ -1296,7 +1295,6 @@
             const title = document.getElementById('post-title').value;
             const copy = document.getElementById('post-copy').value;
             const insight = document.getElementById('post-insight').value;
-            const fontScale = document.getElementById('post-goal').value; // Wait, mapping goal correctly
             const goal = document.getElementById('post-goal').value;
             const different = document.getElementById('post-different').value;
             
@@ -1863,33 +1861,6 @@
                 }, 200);
             }, 3500);
         }
-
-        // Paste this function into your index.html inside the <script> section
-async function sendAuthSms() {
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    activeSmsCode = code;
-    
-    // Replace the URL below with your actual Vercel project URL
-    const VERCEL_URL = 'https://YOUR-VERCEL-PROJECT-URL.vercel.app';
-
-    try {
-        const response = await fetch(`${VERCEL_URL}/api/send-code`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: code })
-        });
-        
-        if (response.ok) {
-            spawnToast("SMS Dispatched", "A verification code has been dispatched to your email/phone gateway.");
-        } else {
-            throw new Error("Backend request failed");
-        }
-    } catch (error) {
-        console.error("Backend error, falling back to local simulation:", error);
-        console.log("[Verification Console Log] Security code generated:", code);
-        spawnToast("SMS Dispatched", "A verification security code has been sent to your registered gateway.");
-    }
-}
     </script>
 </body>
 </html>
