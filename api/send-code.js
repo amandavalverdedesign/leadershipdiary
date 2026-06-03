@@ -17,7 +17,7 @@ export default async function handler(request, response) {
         // Use the email address you registered with Resend here for testing!
         await resend.emails.send({
             from: 'onboarding@resend.dev', 
-            to: 'YOUR_VERIFIED_EMAIL@EMAIL.COM', 
+            to: 'amandavalverde@cca.edu', 
             subject: 'Leadership Diary Security Code',
             text: `Your Leadership Diary security verification code is: ${code}`,
         });
