@@ -3,595 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Chaos // Typography System & Style Guide</title>
-    <!-- Google Fonts for Bricolage Grotesque and Plus Jakarta Sans (as a premium fallback for Degular) -->
+    <title>Amanda Valverde // Leadership Diary Cockpit</title>
+    
+    <!-- Google Fonts for Bricolage Grotesque and Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mustard: '#D19D14',
+                        'deep-brown': '#501A0D',
+                        'soft-salmon': '#F99B86',
+                        'vibrant-orange': '#F95417',
+                        'lavender-pink': '#FBCBFA',
+                        'warm-cream': '#FAF8F5'
+                    },
+                    fontFamily: {
+                        display: ['Bricolage Grotesque', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         :root {
-            /* Bold Saturated Color Palette from d79a67c6f8d849f054f894eb88a0f9d9.jpg */
             --color-mustard: #D19D14;
             --color-deep-brown: #501A0D;
             --color-soft-salmon: #F99B86;
             --color-vibrant-orange: #F95417;
             --color-lavender-pink: #FBCBFA;
-            
-            /* High Contrast Layout Variables */
-            --color-bg: #FBCBFA; /* Saturated Lavender Pink canvas */
-            --color-surface: #FAF8F5; /* Highly legible warm cream for content cards */
-            --color-sidebar-bg: #D19D14; /* Vibrant mustard sidebar */
-            --color-text-dark: #501A0D;
-            --color-text-light: #FAF8F5;
-            
-            /* Structural Borders (Neo-Brutalist Aesthetic) */
+            --color-cream: #FAF8F5;
             --stroke-heavy: 4px solid var(--color-deep-brown);
-            --stroke-medium: 2px solid var(--color-deep-brown);
-            
-            /* High-Profile Typography Stacks */
-            --font-display: 'Bricolage Grotesque', sans-serif;
-            --font-body: 'Degular', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            
-            /* Spacing Grid */
-            --space-1: 4px;
-            --space-2: 8px;
-            --space-3: 16px;
-            --space-4: 24px;
-            --space-5: 32px;
-            --space-6: 48px;
-            --space-7: 64px;
-            
-            /* Brutalist Radii */
-            --radius-sharp: 0px;
-            --radius-md: 16px;
-            --radius-pill: 100px;
+            --font-scale: 1.0; /* Added dynamic typographic scale multiplier */
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        html {
+            font-size: calc(100% * var(--font-scale)) !important; /* Root scaler handles Tailwind sizing cleanly */
         }
 
         body {
-            background-color: var(--color-bg);
-            color: var(--color-text-dark);
-            font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 1.5;
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 320px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: var(--color-sidebar-bg);
-            border-right: var(--stroke-heavy);
-            padding: var(--space-4);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow-y: auto;
-            z-index: 10;
-        }
-
-        .sidebar-brand {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: var(--space-4);
-            background-color: var(--color-surface);
-            border: var(--stroke-medium);
-            padding: var(--space-4);
-            border-radius: var(--radius-md);
-            box-shadow: 4px 4px 0px var(--color-deep-brown);
-        }
-
-        .sidebar-name {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 28px;
-            line-height: 1.0;
-            color: var(--color-deep-brown);
-            text-transform: uppercase;
-            letter-spacing: -1.5px;
-        }
-
-        .sidebar-title-main {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 13px;
-            text-transform: uppercase;
-            color: var(--color-deep-brown);
             background-color: var(--color-lavender-pink);
-            border: 2px solid var(--color-deep-brown);
-            padding: 4px 10px;
-            display: inline-block;
-            margin-top: var(--space-3);
-            width: max-content;
-            transform: rotate(-1.5deg);
-            box-shadow: 2px 2px 0px var(--color-deep-brown);
-            border-radius: 4px;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-        }
-
-        .sidebar-item {
-            margin-bottom: var(--space-2);
-        }
-
-        .sidebar-link {
-            display: block;
-            padding: var(--space-2) var(--space-3);
             color: var(--color-deep-brown);
-            text-decoration: none;
-            font-weight: 700;
-            font-family: var(--font-display);
-            font-size: 15px;
-            text-transform: uppercase;
-            border-radius: var(--radius-md);
-            border: 2px solid transparent;
-            transition: all 0.15s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
 
-        .sidebar-link:hover {
-            background-color: var(--color-vibrant-orange);
-            color: var(--color-text-light);
-            border: var(--stroke-medium);
-            transform: translate(-4px, -4px);
-            box-shadow: 4px 4px 0px var(--color-deep-brown);
+        /* Custom High Contrast overrides mapping the established parameters */
+        body.high-contrast {
+            --color-bg: #FFFFFF !important;
+            --color-lavender-pink: #FFFFFF !important;
+            --color-mustard: #FFFF00 !important;
+            --color-deep-brown: #000000 !important;
+            --color-cream: #FFFFFF !important;
+            --color-soft-salmon: #FFFFFF !important;
+            --color-vibrant-orange: #0000FF !important;
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+        body.high-contrast .bg-mustard { background-color: #ffff00 !important; }
+        body.high-contrast .bg-warm-cream,
+        body.high-contrast .bg-cream { background-color: #ffffff !important; }
+        body.high-contrast .bg-vibrant-orange { background-color: #0000ff !important; color: #ffffff !important; }
+        body.high-contrast .bg-lavender-pink { background-color: #ffffff !important; }
+        body.high-contrast .bg-soft-salmon { background-color: #ffffff !important; }
+        body.high-contrast .text-deep-brown { color: #000000 !important; }
+        body.high-contrast .border-deep-brown,
+        body.high-contrast .border-r-4,
+        body.high-contrast .border-4,
+        body.high-contrast .border-2 { border-color: #000000 !important; }
+        body.high-contrast .shadow-\[4px_4px_0px_#501A0D\],
+        body.high-contrast .shadow-\[3px_3px_0px_#501A0D\],
+        body.high-contrast .shadow-\[6px_6px_0px_#501A0D\],
+        body.high-contrast .shadow-\[8px_8px_0px_#501A0D\],
+        body.high-contrast .brutalist-card {
+            box-shadow: 4px 4px 0px #000000 !important;
         }
 
-        .sidebar-footer {
-            font-size: 11px;
-            font-family: monospace;
-            color: var(--color-deep-brown);
-            line-height: 1.4;
-            background-color: var(--color-surface);
-            border: var(--stroke-medium);
-            padding: var(--space-3);
-            border-radius: var(--radius-md);
+        /* Prevent rollover text whiteout in High Contrast Mode */
+        body.high-contrast .brutalist-btn:hover,
+        body.high-contrast button:hover,
+        body.high-contrast [role="button"]:hover,
+        body.high-contrast .sidebar-link:hover {
+            background-color: #000000 !important;
+            color: #FFFF00 !important; /* Perfect AAA contrast yellow-on-black */
+            border-color: #000000 !important;
+        }
+        body.high-contrast a:hover {
+            color: #0000FF !important;
+            text-decoration: underline !important;
+        }
+        body.high-contrast .scale-btn:hover {
+            background-color: #000000 !important;
+            color: #FFFFFF !important;
+        }
+
+        /* Accessibility Component Styles - Isolated from dynamic html root scaling */
+        .sidebar-accessibility {
+            margin-top: 1rem;
+            background-color: var(--color-cream);
+            border: var(--stroke-heavy);
+            padding: 10px;
+            border-radius: 16px;
             box-shadow: 3px 3px 0px var(--color-deep-brown);
-            margin-top: var(--space-4);
+            transition: all 0.2s ease;
         }
-
-        .main-content {
-            margin-left: 320px;
-            padding: var(--space-6) var(--space-5);
-            width: calc(100% - 320px);
-            max-width: 1100px;
+        
+        /* Shield the panel from root --font-scale scaling to prevent visual overflow */
+        .sidebar-accessibility,
+        .sidebar-accessibility * {
+            font-size: unset; 
         }
-
-        .card {
-            background: var(--color-surface);
-            border: var(--stroke-heavy);
-            border-radius: var(--radius-md);
-            padding: var(--space-5);
-            margin-bottom: var(--space-5);
-            box-shadow: 10px 10px 0px var(--color-deep-brown);
-            position: relative;
-            overflow: hidden;
+        
+        .accessibility-controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
         }
-
-        /* Hero Header Customization */
-        .hero-card {
-            background-color: var(--color-vibrant-orange);
-            color: var(--color-text-light);
-            border-radius: 24px;
+        
+        .sidebar-accessibility .brutalist-btn {
+            font-size: clamp(8px, 2.5vw, 10px) !important;
+            padding: 5px 8px !important;
+            box-shadow: 2px 2px 0px var(--color-deep-brown) !important;
+            margin: 0 !important;
+            flex-shrink: 0;
         }
-
-        .hero-card h1 {
-            color: var(--color-text-light);
-            font-family: var(--font-display);
-            font-size: 72px;
-            font-weight: 800;
-            line-height: 0.95;
-            letter-spacing: -3px;
-            text-transform: uppercase;
-            margin-bottom: var(--space-3);
-        }
-
-        .hero-card h1 span {
-            color: var(--color-deep-brown);
-            background: var(--color-lavender-pink);
-            padding: 0 var(--space-3);
-            display: inline-block;
-            border: var(--stroke-heavy);
-            transform: rotate(-1.5deg);
-        }
-
-        .hero-card p {
-            font-size: 22px;
-            line-height: 1.4;
-            max-width: 780px;
-            font-weight: 500;
-        }
-
-        /* Section Typography */
-        h2 {
-            font-family: var(--font-display);
-            font-size: 42px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -1.5px;
-            margin-bottom: var(--space-4);
+        
+        .scale-control {
             display: flex;
             align-items: center;
-            gap: var(--space-2);
-            color: var(--color-deep-brown);
+            justify-content: flex-end;
+            gap: 4px;
+            margin-top: 0;
+            flex-grow: 1;
         }
-
-        h2::before {
-            content: '';
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            background-color: var(--color-vibrant-orange);
-            border: var(--stroke-medium);
+        
+        .scale-btn {
+            background-color: var(--color-cream);
+            border: 2px solid var(--color-deep-brown);
             border-radius: 50%;
-        }
-
-        h3 {
-            font-family: var(--font-display);
-            font-size: 26px;
-            text-transform: uppercase;
-            margin-top: var(--space-4);
-            margin-bottom: var(--space-2);
-            color: var(--color-deep-brown);
-        }
-
-        p {
-            margin-bottom: var(--space-3);
-            font-size: 17px;
-            max-width: 780px;
-        }
-
-        code {
-            font-family: monospace;
-            background-color: var(--color-lavender-pink);
-            border: 1px solid var(--color-deep-brown);
-            padding: 2px 6px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        /* Massive Typography Specimen Card Styles */
-        .specimen-box {
-            border: var(--stroke-medium);
-            background: var(--color-surface);
-            border-radius: var(--radius-md);
-            padding: var(--space-4);
-            margin-top: var(--space-4);
-        }
-
-        .specimen-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--space-3);
-            padding-bottom: var(--space-4);
-            border-bottom: 2px dashed var(--color-deep-brown);
-            margin-bottom: var(--space-4);
-        }
-
-        .control-group {
+            width: 24px !important;
+            height: 24px !important;
             display: flex;
-            flex-direction: column;
-            gap: var(--space-1);
-        }
-
-        .control-label {
-            font-family: var(--font-display);
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bricolage Grotesque', sans-serif;
             font-weight: 800;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 1px;
-            color: var(--color-vibrant-orange);
+            font-size: 14px !important;
+            color: var(--color-deep-brown);
+            cursor: pointer;
+            box-shadow: 1.5px 1.5px 0px var(--color-deep-brown);
+            transition: all 0.1s ease;
+            padding: 0 !important;
+            flex-shrink: 0;
+        }
+        
+        .sidebar-accessibility .scale-display {
+            font-size: clamp(8px, 2.5vw, 10px) !important;
+            padding: 4px 6px !important;
+            width: 44px !important;
+            text-align: center;
+            box-shadow: 1.5px 1.5px 0px var(--color-deep-brown) !important;
+            flex-shrink: 0;
+        }
+        
+        .scale-btn:hover {
+            background-color: var(--color-lavender-pink);
+            transform: translate(-1px, -1px);
+            box-shadow: 2px 2px 0px var(--color-deep-brown);
+        }
+        
+        .scale-btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 0.5px 0.5px 0px var(--color-deep-brown);
         }
 
-        .text-input, .range-slider {
-            width: 100%;
-            padding: var(--space-2);
-            font-family: var(--font-body);
-            border: var(--stroke-medium);
-            border-radius: 8px;
-            background: var(--color-surface);
-            font-size: 14px;
-            font-weight: bold;
+        .accessibility-desc {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+            font-size: 10px !important;
+            line-height: 1.3;
+            margin-top: 0;
             color: var(--color-deep-brown);
         }
+        
+        .sidebar-accessibility:hover .accessibility-desc {
+            max-height: 80px;
+            opacity: 0.8;
+            margin-top: 8px;
+        }
 
-        .range-slider {
+        /* Hide Scrollbars Globally while maintaining scroll behavior */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Neo-Brutalist Component Shadows */
+        .brutalist-card {
+            background-color: var(--color-cream);
+            border: var(--stroke-heavy);
+            box-shadow: 8px 8px 0px var(--color-deep-brown);
+            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .brutalist-btn {
+            border: var(--stroke-heavy);
+            box-shadow: 4px 4px 0px var(--color-deep-brown);
+            transition: all 0.1s ease;
+        }
+
+        .brutalist-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--color-deep-brown);
+        }
+
+        .brutalist-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--color-deep-brown);
+        }
+
+        /* Custom Neo-Brutalist Range Slider Stylings */
+        .neo-slider {
             -webkit-appearance: none;
             appearance: none;
-            height: 12px;
+            height: 14px;
             background: var(--color-lavender-pink);
-            cursor: pointer;
+            border: 3px solid var(--color-deep-brown);
+            border-radius: 100px;
             outline: none;
-            padding: 0;
+            transition: background 0.15s ease;
         }
 
-        .range-slider::-webkit-slider-thumb {
+        .neo-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
             width: 24px;
             height: 24px;
             border-radius: 50%;
             background: var(--color-vibrant-orange);
-            border: var(--stroke-medium);
-        }
-
-        /* Interactive Output Stage */
-        .specimen-output {
-            padding: var(--space-4);
-            background-color: var(--color-surface);
-            border: var(--stroke-medium);
-            border-radius: 8px;
-            min-height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            word-break: break-word;
-            transition: all 0.1s ease;
-        }
-
-        .specimen-text-bricolage {
-            font-family: var(--font-display);
-            text-align: center;
-            line-height: 1.0;
-            color: var(--color-deep-brown);
-            width: 100%;
-        }
-
-        .specimen-text-degular {
-            font-family: var(--font-body);
-            text-align: center;
-            line-height: 1.2;
-            color: var(--color-deep-brown);
-            width: 100%;
-        }
-
-        /* Weight & Family Toggle Buttons */
-        .toggle-btn {
-            background-color: var(--color-mustard);
-            border: var(--stroke-medium);
-            border-radius: var(--radius-pill);
-            padding: var(--space-2) var(--space-3);
-            font-family: var(--font-display);
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 12px;
-            color: var(--color-deep-brown);
+            border: 3px solid var(--color-deep-brown);
             cursor: pointer;
-            transition: all 0.1s ease;
-        }
-
-        .toggle-btn.active {
-            background-color: var(--color-vibrant-orange);
-            color: var(--color-text-light);
             box-shadow: 2px 2px 0px var(--color-deep-brown);
+            transition: transform 0.1s ease;
         }
 
-        /* Layout Grid and recreation styles */
-        .palette-recreation {
-            background-color: var(--color-surface);
-            border: var(--stroke-medium);
-            border-radius: var(--radius-md);
-            padding: var(--space-4);
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-3);
-            max-width: 480px;
-            margin: var(--space-4) 0;
+        .neo-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
         }
 
-        .palette-row {
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
+        /* Quote Loading pulse animation */
+        @keyframes quotePulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        .ai-loading-pulse {
+            animation: quotePulse 1.5s infinite ease-in-out;
         }
 
-        .circle-accent {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: var(--stroke-medium);
-            flex-shrink: 0;
+        /* Resizing Divider Line cursor control */
+        #resizer {
+            cursor: col-resize;
+            transition: background-color 0.15s ease;
         }
 
-        .pill-accent {
-            flex-grow: 1;
-            height: 70px;
-            border-radius: var(--radius-pill);
-            border: var(--stroke-medium);
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: var(--space-4);
-            font-family: monospace;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        /* Tables and components */
-        .brutalist-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: var(--space-4) 0;
-            border: var(--stroke-heavy);
-            background: var(--color-surface);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        .brutalist-table th, .brutalist-table td {
-            padding: var(--space-3);
-            border: 2px solid var(--color-deep-brown);
-            text-align: left;
-        }
-
-        .brutalist-table th {
-            background-color: var(--color-mustard);
-            color: var(--color-deep-brown);
-            font-family: var(--font-display);
-            text-transform: uppercase;
-            font-weight: 800;
-            font-size: 15px;
-        }
-
-        .live-canvas {
-            background: rgba(80, 26, 13, 0.04);
-            border: 3px dashed var(--color-deep-brown);
-            border-radius: var(--radius-md);
-            padding: var(--space-4);
-            margin: var(--space-3) 0 var(--space-4) 0;
-            display: flex;
-            gap: var(--space-3);
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        /* Segmented Controller */
-        .segmented-control {
-            display: inline-flex;
-            background-color: var(--color-surface);
-            border: var(--stroke-medium);
-            border-radius: var(--radius-pill);
-            padding: 4px;
-            gap: 4px;
-        }
-
-        .segment-btn {
-            background: transparent;
-            border: none;
-            padding: var(--space-2) var(--space-4);
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 13px;
-            text-transform: uppercase;
-            color: var(--color-deep-brown);
-            border-radius: var(--radius-pill);
-            cursor: pointer;
-            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .segment-btn.active {
-            background-color: var(--color-vibrant-orange);
-            color: var(--color-text-light);
-            border: var(--stroke-medium);
-            box-shadow: 2px 2px 0px var(--color-deep-brown);
-        }
-
-        /* Tactile Hard Shadow Cards */
-        .brutalist-card-interactive {
-            background: var(--color-surface);
-            border: var(--stroke-heavy);
-            border-radius: var(--radius-md);
-            padding: var(--space-4);
-            box-shadow: 6px 6px 0px var(--color-deep-brown);
-            transition: all 0.1s ease;
-            cursor: pointer;
-            max-width: 320px;
-        }
-
-        .brutalist-card-interactive:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 8px 8px 0px var(--color-deep-brown);
-        }
-
-        .brutalist-card-interactive:active {
-            transform: translate(6px, 6px);
-            box-shadow: 0px 0px 0px var(--color-deep-brown);
-        }
-
-        /* Status Badge Indicators */
-        .status-badge-panel {
-            display: flex;
-            gap: var(--space-2);
-            flex-wrap: wrap;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            border: var(--stroke-medium);
-            border-radius: var(--radius-pill);
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 11px;
-            text-transform: uppercase;
-            color: var(--color-deep-brown);
-        }
-
-        .status-badge.success { background-color: var(--color-lavender-pink); }
-        .status-badge.warning { background-color: var(--color-mustard); }
-        .status-badge.error { background-color: var(--color-soft-salmon); }
-
-        /* Smooth Accordion Component */
-        .brutalist-accordion {
-            width: 100%;
-            max-width: 500px;
-            border: var(--stroke-heavy);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            background: var(--color-surface);
-            box-shadow: 4px 4px 0px var(--color-deep-brown);
-        }
-
-        .accordion-item {
-            border-bottom: 3px solid var(--color-deep-brown);
-        }
-
-        .accordion-item:last-child {
-            border-bottom: none;
-        }
-
-        .accordion-trigger {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: var(--space-3) var(--space-4);
-            text-align: left;
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 15px;
-            text-transform: uppercase;
-            color: var(--color-deep-brown);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: background-color 0.1s ease;
-        }
-
-        .accordion-trigger:hover {
-            background-color: var(--color-lavender-pink);
-        }
-
-        .accordion-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-            background: rgba(80, 26, 13, 0.02);
-        }
-
-        .accordion-panel-content {
-            padding: var(--space-4);
-            font-size: 14px;
-            border-top: 2px dashed var(--color-deep-brown);
-            color: var(--color-deep-brown);
-        }
-
-        /* Toast Dispatcher */
         #toast-container {
             position: fixed;
             bottom: 24px;
@@ -600,620 +290,992 @@
             flex-direction: column;
             gap: 12px;
             z-index: 1000;
+            pointer-events: none;
         }
 
         .toast-node {
-            background: var(--color-surface);
+            background: var(--color-cream);
             border: var(--stroke-heavy);
-            border-radius: var(--radius-md);
-            padding: var(--space-3) var(--space-4);
-            box-shadow: 6px 6px 0px var(--color-deep-brown);
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 4px 4px 0px var(--color-deep-brown);
             display: flex;
             align-items: center;
             gap: 12px;
             transform: translateX(120%);
             animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             max-width: 320px;
+            pointer-events: auto;
+        }
+
+        .export-desc {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+            font-size: 11px;
+            line-height: 1.3;
+            margin-top: 0;
+            color: var(--color-deep-brown);
+            font-weight: normal !important;
+        }
+
+        .export-desc.active {
+            max-height: 80px;
+            opacity: 0.8;
+            margin-top: 8px;
         }
 
         @keyframes slideIn {
             to { transform: translateX(0); }
         }
 
-        .action-node {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-2) var(--space-4);
-            background-color: var(--color-mustard);
-            border: var(--stroke-heavy);
-            border-radius: var(--radius-pill);
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 16px;
-            text-transform: uppercase;
-            color: var(--color-deep-brown);
-            cursor: pointer;
-            box-shadow: 4px 4px 0px var(--color-deep-brown);
-            transition: all 0.1s ease;
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .main-content {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+            .card-print {
+                border: 2px solid #000000 !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+                margin-bottom: 2rem !important;
+            }
         }
-
-        .action-node:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px var(--color-deep-brown);
-            background-color: var(--color-lavender-pink);
-        }
-
-        /* High Energy Callouts */
-    .loud-quote {
-        border: var(--stroke-heavy);
-        background-color: var(--color-lavender-pink);
-        padding: var(--space-4);
-        border-radius: var(--radius-md);
-        font-family: var(--font-display);
-        font-size: 24px;
-        font-weight: 800;
-        line-height: 1.3;
-        color: var(--color-deep-brown);
-        margin: var(--space-4) 0;
-        position: relative;
-    }
-
-    .loud-quote::after {
-        content: "✦";
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 24px;
-        color: var(--color-vibrant-orange);
-    }
-
-    .tone-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--space-4);
-        margin-top: var(--space-4);
-    }
-    @media (min-width: 768px) {
-        .tone-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    .tone-card {
-        border: var(--stroke-medium);
-        border-radius: var(--radius-md);
-        padding: var(--space-4);
-        background: var(--color-surface);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .tone-card:hover {
-        transform: translate(-4px, -4px);
-        box-shadow: 4px 4px 0px var(--color-deep-brown);
-    }
-    .tone-badge {
-        display: inline-block;
-        padding: 4px 10px;
-        border-radius: var(--radius-pill);
-        font-family: var(--font-display);
-        font-weight: 800;
-        font-size: 11px;
-        text-transform: uppercase;
-        border: 2px solid var(--color-deep-brown);
-        margin-bottom: var(--space-3);
-    }
-    .rhetoric-list {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3);
-        margin-top: var(--space-2);
-    }
-    .rhetoric-item {
-        border-left: 4px solid var(--color-vibrant-orange);
-        padding-left: var(--space-3);
-    }
-    .rhetoric-tag {
-        font-family: var(--font-display);
-        font-weight: 800;
-        font-size: 13px;
-        text-transform: uppercase;
-        color: var(--color-vibrant-orange);
-    }
-</style>
+    </style>
 </head>
-<body>
+<body class="min-h-screen bg-lavender-pink flex flex-col md:flex-row antialiased select-none overflow-hidden">
 
-    <!-- Brutalist Sidebar -->
-    <nav class="sidebar">
-        <div>
-            <div class="sidebar-brand">
-                <div class="sidebar-name">Amanda Valverde</div>
-                <div class="sidebar-title-main">Creative Chaos</div>
-            </div>
-            <ul class="sidebar-menu">
-                <li class="sidebar-item"><a href="#identity" class="sidebar-link">01. Persona</a></li>
-                <li class="sidebar-item"><a href="#specimen" class="sidebar-link">02. Type Specimen</a></li>
-                <li class="sidebar-item"><a href="#palette" class="sidebar-link">03. Color Blast</a></li>
-                <li class="sidebar-item"><a href="#spacing" class="sidebar-link">04. Spacing Rules</a></li>
-                <li class="sidebar-item"><a href="#patterns" class="sidebar-link">05. Components</a></li>
-                <li class="sidebar-item"><a href="#tone" class="sidebar-link">06. Voice & Tone</a></li>
-            </ul>
-        </div>
-        <div class="sidebar-footer">
-            Personal Style Spec v3.0 <br>
-            Fonts: Bricolage & Degular
-        </div>
-    </nav>
+    <!-- Parent container managing Resizable side-by-side splits -->
+    <div class="flex h-screen w-screen overflow-hidden no-scrollbar" id="app-container">
 
-    <!-- Main Dynamic Workspace -->
-    <main class="main-content">
+        <!-- Navigation Sidebar -->
+        <aside id="sidebar" class="no-print h-full shrink-0 bg-mustard border-r-4 border-deep-brown p-6 flex flex-col justify-between overflow-y-auto no-scrollbar" style="width: 320px; min-width: 260px; max-width: 500px;">
+            <div class="space-y-6">
+                <!-- Header Profile Section using Facetune_26-10-2025-16-39-45.jpg -->
+                <div class="bg-warm-cream border-4 border-deep-brown rounded-2xl p-4 shadow-[4px_4px_0px_#501A0D] mb-4 relative text-center">
+                    <div class="relative w-28 h-28 mx-auto mb-3">
+                        <img id="profile-preview" src="Facetune_26-10-2025-16-39-45.jpg" 
+                             alt="Amanda Valverde Profile" 
+                             class="w-full h-full object-cover rounded-full border-4 border-deep-brown shadow-[2px_2px_0px_#501A0D]"
+                             onerror="this.onerror=null; this.src='https://placehold.co/150x150/FBCBFA/501A0D?text=AV'">
+                    </div>
+                    <h1 class="font-display font-extrabold text-2xl text-deep-brown text-center uppercase tracking-tight leading-none">Amanda Valverde</h1>
+                    <p class="text-xs text-deep-brown/80 font-bold text-center mt-1 font-display tracking-widest uppercase">UX Engineer & Leader</p>
+                    <div class="bg-lavender-pink border-2 border-deep-brown px-3 py-1 text-[11px] font-display font-extrabold text-deep-brown mt-3 text-center uppercase rotate-[-1deg] shadow-[2px_2px_0px_#501A0D] rounded-md">
+                        Leadership Diary
+                    </div>
+                </div>
 
-        <!-- Hero Card -->
-        <header class="card hero-card" id="identity">
-            <h1>UX Engineer <span>& Leader</span></h1>
-            <p>
-                I bridge the high-fidelity space of visual expression with the absolute logic of production-ready code. As an aspiring UX Engineer and technical design leader, my background merges human-computer interaction with robust front-end architectures. 
-            </p>
-            <p style="margin-top: var(--space-3); font-size: 18px; opacity: 0.95;">
-                My design sensibilities are rooted in <strong>"Structured Expressionism"</strong>—pairing rigorous, mathematically precise grids with fearless, high-contrast visual systems. My work style is highly collaborative, iterative, and systematic; I believe the best design systems are not static specs, but living code repositories that empower engineering and design teams alike to build with absolute confidence and speed.
-            </p>
-        </header>
-
-        <!-- Section: Interactive Type Specimen -->
-        <section class="card" id="specimen">
-            <h2>02. Interactive Type Specimen</h2>
-            <p>
-                Test our signature typefaces below. Toggle between the display prowess of <strong>Bricolage Grotesque</strong> (with its fluid ink-traps and expressive letterforms) and the structured system layout capabilities of <strong>Degular</strong>.
-            </p>
-
-            <div class="specimen-box">
-                <div class="specimen-controls">
-                    <div class="control-group">
-                        <span class="control-label">Typeface Family</span>
-                        <div style="display: flex; gap: 8px; margin-top: 4px;">
-                            <button id="toggle-bricolage" class="toggle-btn active" onclick="setFamily('bricolage')">Bricolage</button>
-                            <button id="toggle-degular" class="toggle-btn" onclick="setFamily('degular')">Degular</button>
+                <!-- Global Metrics Summary Dashboard -->
+                <div class="bg-warm-cream border-4 border-deep-brown rounded-2xl p-4 shadow-[4px_4px_0px_#501A0D] mb-4">
+                    <h3 class="font-display font-extrabold text-xs text-deep-brown uppercase tracking-wider mb-3 border-b-2 border-deep-brown/20 pb-1">Average Session Metrics</h3>
+                    <div class="space-y-2.5 text-xs font-bold" id="sidebar-averages">
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Confidence:</span>
+                            <span id="avg-confidence" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Communication:</span>
+                            <span id="avg-communication" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Team Contribution:</span>
+                            <span id="avg-contribution" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Decision Making:</span>
+                            <span id="avg-decisions" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="truncate pr-1">Energy Level:</span>
+                            <span id="avg-energy" class="bg-soft-salmon border-2 border-deep-brown px-1.5 py-0.5 rounded shrink-0">-</span>
                         </div>
                     </div>
-                    <div class="control-group">
-                        <span class="control-label">Live Test Copy</span>
-                        <input type="text" id="type-test-input" class="text-input" value="CREATIVE CHAOS PROTOCOL" oninput="updateText()">
-                    </div>
-                    <div class="control-group">
-                        <span class="control-label">Font Sizing: <span id="size-indicator">48px</span></span>
-                        <input type="range" id="size-slider" class="range-slider" min="20" max="120" value="48" oninput="updateSize()">
-                    </div>
-                    <div class="control-group">
-                        <span class="control-label">Font Weight: <span id="weight-indicator">800</span></span>
-                        <input type="range" id="weight-slider" class="range-slider" min="200" max="800" step="100" value="800" oninput="updateWeight()">
-                    </div>
                 </div>
 
-                <!-- Display Stage -->
-                <div class="specimen-output">
-                    <div id="specimen-target" class="specimen-text-bricolage" style="font-size: 48px; font-weight: 800;">
-                        CREATIVE CHAOS PROTOCOL
+                <!-- Global Search & Tag Filters -->
+                <div class="bg-warm-cream border-4 border-deep-brown rounded-2xl p-4 shadow-[4px_4px_0px_#501A0D]">
+                    <h3 class="font-display font-extrabold text-xs text-deep-brown uppercase tracking-wider mb-2">Popular Tags</h3>
+                    <div class="flex flex-wrap gap-1.5" id="sidebar-tags">
+                        <span class="text-[11px] font-bold opacity-60">No entries recorded.</span>
                     </div>
                 </div>
             </div>
 
-            <table class="brutalist-table">
-                <thead>
-                    <tr>
-                        <th>Scale Key</th>
-                        <th>Typeface</th>
-                        <th>Sizing / Weight Specs</th>
-                        <th>Design Characteristics</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>H1 Display</strong></td>
-                        <td>Bricolage Grotesque</td>
-                        <td>64px - 120px / Extra-Bold (800)</td>
-                        <td>High visual noise, tight negative letter-spacing (-0.05em), dramatic geometric ink-traps.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>H2 Headings</strong></td>
-                        <td>Bricolage Grotesque</td>
-                        <td>38px - 48px / Bold (700)</td>
-                        <td>Aggressive section labeling. Structured and hard-hitting bounds.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Body Copy</strong></td>
-                        <td>Degular Standard</td>
-                        <td>16px - 18px / Regular (400)</td>
-                        <td>Incredibly clean layout clarity, neutral spacing metrics, optimized for deep readability.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Labels & Metadata</strong></td>
-                        <td>Degular / Mono fallback</td>
-                        <td>12px - 14px / Medium (500)</td>
-                        <td>Micro-copy, technical structural grids, metrics tables.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+            <div class="mt-6 space-y-4">
+                <!-- Footer Backup Panel styled as UI specifications -->
+                <div class="bg-warm-cream border-4 border-deep-brown rounded-2xl p-3 shadow-[3px_3px_0px_#501A0D] text-xs font-bold">
+                    <span class="block text-[10px] font-display uppercase tracking-widest text-vibrant-orange mb-1">Backup & Git Sync</span>
+                    <div class="flex gap-1.5">
+                        <button onclick="exportData('json')" onmouseenter="showDesc('json')" onmouseleave="hideDesc('json')" class="bg-lavender-pink border-2 border-deep-brown p-1.5 rounded-md hover:bg-vibrant-orange hover:text-white transition-colors w-1/2 text-center text-[10px] uppercase">Export JSON</button>
+                        <button onclick="exportData('md')" onmouseenter="showDesc('md')" onmouseleave="hideDesc('md')" class="bg-lavender-pink border-2 border-deep-brown p-1.5 rounded-md hover:bg-vibrant-orange hover:text-white transition-colors w-1/2 text-center text-[10px] uppercase">Export MD</button>
+                    </div>
+                    <div id="json-desc" class="export-desc">
+                        Downloads your entire diary database as a JSON file. Use this to commit to your GitHub repository so your live site stays updated.
+                    </div>
+                    <div id="md-desc" class="export-desc">
+                        Downloads your diary history as a cleanly structured Markdown document, ready for static note editors or Hugo/Jekyll integration.
+                    </div>
+                </div>
 
-        <!-- Section: Palette -->
-        <section class="card" id="palette">
-            <h2>03. Color Blast</h2>
-            <p>
-                A bold, highly saturated color palette engineered for deep structural hierarchy and rich visual pacing. By avoiding sterile, clinical grays, we cultivate a digital canvas that is both structurally disciplined and visually expressive.
-            </p>
+                <!-- Accessibility Controls Added at the Bottom of the Sidebar -->
+                <div class="sidebar-accessibility">
+                    <div class="accessibility-controls-row">
+                        <button class="brutalist-btn bg-warm-cream border-2 border-deep-brown p-1.5 rounded-md hover:bg-vibrant-orange hover:text-white text-[10px] font-bold uppercase" onclick="toggleContrast()" style="padding: 6px 10px; margin: 0; box-shadow: 2px 2px 0px var(--color-deep-brown); flex-shrink: 0;">
+                            🌓 Contrast
+                        </button>
+                        <div class="scale-control">
+                            <button class="scale-btn" onclick="adjustFontScale(-0.05)">−</button>
+                            <button class="brutalist-btn bg-warm-cream border-2 border-deep-brown p-1.5 text-[10px] font-bold uppercase rounded-md scale-display" onclick="resetFontScale()" title="Click to reset scale" style="padding: 4px 8px; margin: 0; box-shadow: 2px 2px 0px var(--color-deep-brown); text-align: center; width: 48px;">
+                                100%
+                            </button>
+                            <button class="scale-btn" onclick="adjustFontScale(0.05)">+</button>
+                        </div>
+                    </div>
+                    <div class="accessibility-desc">
+                        Adjust contrast properties and typographic scales on the fly. Hover to reveal description details.
+                    </div>
+                </div>
 
-            <div class="palette-recreation">
-                <div class="palette-row">
-                    <div class="circle-accent" style="background-color: var(--color-mustard);"></div>
-                    <div class="pill-accent" style="background-color: var(--color-mustard); color: var(--color-deep-brown);">#D19D14</div>
-                </div>
-                <div class="palette-row">
-                    <div class="pill-accent" style="background-color: var(--color-deep-brown); color: var(--color-lavender-pink);">#501A0D</div>
-                    <div class="circle-accent" style="background-color: var(--color-deep-brown);"></div>
-                </div>
-                <div class="palette-row">
-                    <div class="circle-accent" style="background-color: var(--color-soft-salmon);"></div>
-                    <div class="pill-accent" style="background-color: var(--color-soft-salmon); color: var(--color-deep-brown);">#F99B86</div>
-                </div>
-                <div class="palette-row">
-                    <div class="pill-accent" style="background-color: var(--color-vibrant-orange); color: var(--color-text-light);">#F95417</div>
-                    <div class="circle-accent" style="background-color: var(--color-vibrant-orange);"></div>
-                </div>
-                <div class="palette-row">
-                    <div class="circle-accent" style="background-color: var(--color-lavender-pink);"></div>
-                    <div class="pill-accent" style="background-color: var(--color-lavender-pink); color: var(--color-deep-brown);">#FBCBFA</div>
+                <div class="text-[10px] font-mono text-deep-brown/70 text-center">
+                    amandavalverdedesign.github.io
                 </div>
             </div>
+        </aside>
 
-            <h3 style="margin-top: var(--space-5);">Aesthetic Combinations & Pairings</h3>
-            <p>These pairings balance high-energy expression with strict layout legibility rules:</p>
+        <!-- Draggable Resizer Partition Handler -->
+        <div id="resizer" class="hidden md:flex w-2 hover:w-3 bg-deep-brown cursor-col-resize shrink-0 justify-center items-center relative select-none">
+            <div class="w-1 h-12 bg-warm-cream rounded"></div>
+        </div>
+
+        <!-- Main Workspace Frame -->
+        <main id="main-content" class="flex-grow h-full overflow-y-auto no-scrollbar p-4 md:p-8 flex flex-col gap-6">
             
-            <div class="tone-grid" style="margin-top: var(--space-3); margin-bottom: var(--space-4);">
-                <!-- Pairing 1 -->
-                <div class="tone-card" style="background-color: var(--color-surface); border: var(--stroke-medium);">
-                    <div class="tone-badge" style="background-color: var(--color-lavender-pink); color: var(--color-deep-brown); margin-bottom: var(--space-2);">Pairing 01 // Core Canvas</div>
-                    <h4 style="font-size: 16px; margin-bottom: var(--space-1);">Deep Brown on Warm Cream</h4>
-                    <p style="font-size: 13px; margin-bottom: 0; opacity: 0.9;">
-                        The foundational baseline for readable typography, complex system documentation, and high-density logic elements.
-                    </p>
+            <!-- Header Controls with Toggle triggers and Search tool -->
+            <div class="no-print flex flex-wrap justify-between items-center gap-4 bg-warm-cream border-4 border-deep-brown p-4 rounded-2xl shadow-[6px_6px_0px_#501A0D] shrink-0">
+                <div class="flex-grow min-w-[200px]">
+                    <!-- Write New Entry Button aligned with verified structural parameters -->
+                    <button onclick="toggleComposer()" class="brutalist-btn bg-vibrant-orange text-white font-display font-extrabold text-sm md:text-base uppercase tracking-wider px-5 py-2.5 rounded-xl flex items-center justify-between gap-3 w-full transition-transform duration-100">
+                        <span>⚡ Write New Entry</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 transition-transform duration-200" id="composer-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
                 </div>
 
-                <!-- Pairing 2 -->
-                <div class="tone-card" style="background-color: var(--color-lavender-pink); border: var(--stroke-medium);">
-                    <div class="tone-badge" style="background-color: var(--color-deep-brown); color: var(--color-surface); margin-bottom: var(--space-2);">Pairing 02 // Saturated Interactive</div>
-                    <h4 style="font-size: 16px; margin-bottom: var(--space-1);">Deep Brown on Lavender Pink</h4>
-                    <p style="font-size: 13px; margin-bottom: 0; opacity: 0.9;">
-                        Used to frame dynamic hover states, active system matrices, interactive action nodes, and callout components.
-                    </p>
-                </div>
-
-                <!-- Pairing 3 -->
-                <div class="tone-card" style="background-color: var(--color-soft-salmon); border: var(--stroke-medium);">
-                    <div class="tone-badge" style="background-color: var(--color-vibrant-orange); color: var(--color-surface); margin-bottom: var(--space-2);">Pairing 03 // Earthy Grounding</div>
-                    <h4 style="font-size: 16px; margin-bottom: var(--space-1);">Deep Brown on Soft Salmon</h4>
-                    <p style="font-size: 13px; margin-bottom: 0; opacity: 0.9;">
-                        An organic contrast layer, perfect for subtle metadata labels, secondary info-banners, and layout division containers.
-                    </p>
-                </div>
-
-                <!-- Pairing 4 -->
-                <div class="tone-card" style="background-color: var(--color-mustard); border: var(--stroke-medium);">
-                    <div class="tone-badge" style="background-color: var(--color-deep-brown); color: var(--color-surface); margin-bottom: var(--space-2);">Pairing 04 // System Accents</div>
-                    <h4 style="font-size: 16px; margin-bottom: var(--space-1);">Deep Brown on Muted Mustard</h4>
-                    <p style="font-size: 13px; margin-bottom: 0; opacity: 0.9;">
-                        Designed to outline navigational systems, side-navigation backdrops, status tags, and warning criteria maps.
-                    </p>
+                <!-- Dynamic Magnifying Glass Tag Search Tool -->
+                <div class="relative flex items-center flex-grow min-w-[200px]">
+                    <input type="text" id="tag-search" oninput="filterEntries()" placeholder="Search titles or tags..." 
+                           class="border-4 border-deep-brown bg-white text-deep-brown font-bold text-sm px-4 py-2 rounded-xl focus:outline-none focus:border-vibrant-orange w-full pr-10 shadow-[2px_2px_0px_#501A0D] transition-all">
+                    <span class="absolute right-3 text-deep-brown pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </span>
                 </div>
             </div>
 
-            <h3 style="margin-top: var(--space-5);">WCAG 2.1 Accessibility & Contrast Compliance</h3>
-            <p>
-                A system is only usable if it is accessible. To maintain compliance with strict contrast guidelines, we designate Deep Brown (<code>#501A0D</code>) as our main functional text element on light surfaces. Below is the active math behind our tokens:
-            </p>
-
-            <table class="brutalist-table">
-                <thead>
-                    <tr>
-                        <th>Foreground</th>
-                        <th>Background</th>
-                        <th>Ratio</th>
-                        <th>WCAG Level</th>
-                        <th>Optimal Application</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Deep Brown (<code>#501A0D</code>)</strong></td>
-                        <td>Cream Surface (<code>#FAF8F5</code>)</td>
-                        <td><strong>12.5:1</strong></td>
-                        <td style="color: #2e7d32; font-weight: 800;">PASSES AAA</td>
-                        <td>Primary body copy, documentation tables, and nested inline scripts.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Deep Brown (<code>#501A0D</code>)</strong></td>
-                        <td>Lavender Pink (<code>#FBCBFA</code>)</td>
-                        <td><strong>9.4:1</strong></td>
-                        <td style="color: #2e7d32; font-weight: 800;">PASSES AAA</td>
-                        <td>Highlight markers, system cards, and active navigation controls.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Deep Brown (<code>#501A0D</code>)</strong></td>
-                        <td>Soft Salmon (<code>#F99B86</code>)</td>
-                        <td><strong>6.5:1</strong></td>
-                        <td style="color: #2e7d32; font-weight: 800;">PASSES AAA (Large) / AA (Body)</td>
-                        <td>Static metadata layouts, warning borders, and tags.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Deep Brown (<code>#501A0D</code>)</strong></td>
-                        <td>Muted Mustard (<code>#D19D14</code>)</td>
-                        <td><strong>5.8:1</strong></td>
-                        <td style="color: #2e7d32; font-weight: 800;">PASSES AA</td>
-                        <td>Primary sidebar elements, warning cards, and metadata.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cream Light (<code>#FAF8F5</code>)</strong></td>
-                        <td>Vibrant Orange (<code>#F95417</code>)</td>
-                        <td><strong>3.1:1</strong></td>
-                        <td style="color: #c62828; font-weight: 800;">PASSES AA (Large Text Only)</td>
-                        <td>Large display components and titles (minimum 18pt/24px bold).</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="loud-quote" style="font-size: 16px; line-height: 1.5; margin-top: var(--space-4);">
-                <strong>Compliance Rule:</strong> Vibrant Orange (<code>#F95417</code>) is strictly kept as a design accent border or as a background block wrapped behind Deep Brown (<code>#501A0D</code>) text. It is never used for general body copy, ensuring an elegant user journey across all interfaces.
-            </div>
-        </section>
-
-        <!-- Section: Spacing -->
-        <section class="card" id="spacing">
-            <h2>04. Spacing & Structure</h2>
-            <p>
-                Symmetric structures require rigorous discipline. All elements map cleanly to 8px proportional grid intervals, framing our expressive typographic choices inside logical patterns.
-            </p>
-
-            <div class="live-canvas" style="flex-direction: column; gap: var(--space-2);">
-                <div style="background-color: var(--color-vibrant-orange); border: var(--stroke-medium); width: 100%; padding: var(--space-2); color: white; font-weight: bold; font-family: monospace;">
-                    Grid Line Baseline (8px)
+            <!-- Interactive Post Composer Dashboard -->
+            <div id="composer-panel" class="no-print hidden bg-warm-cream border-4 border-deep-brown rounded-3xl p-6 shadow-[8px_8px_0px_#501A0D] transition-all duration-300">
+                <div class="flex justify-between items-center mb-6 border-b-4 border-deep-brown pb-2">
+                    <h2 id="form-heading" class="font-display font-extrabold text-2xl uppercase text-vibrant-orange tracking-tight">Drafting New Entry</h2>
+                    <button onclick="toggleComposer()" class="text-deep-brown hover:text-vibrant-orange font-display font-black text-xl">✕</button>
                 </div>
-                <div style="background-color: var(--color-mustard); border: var(--stroke-medium); width: 80%; padding: var(--space-3); font-weight: bold; font-family: monospace;">
-                    Standard Element Margin (16px)
-                </div>
-                <div style="background-color: var(--color-soft-salmon); border: var(--stroke-medium); width: 60%; padding: var(--space-4); font-weight: bold; font-family: monospace;">
-                    Block Layout Gap (24px)
-                </div>
-            </div>
-        </section>
 
-        <!-- Section: Components -->
-        <section class="card" id="patterns">
-            <h2>05. UI Component Specifications</h2>
-            <p>
-                Modular components designed to repeat across layouts while letting Bricolage and Degular carry the visual weight.
-            </p>
+                <form id="entry-form" onsubmit="handlePostSubmit(event)" class="space-y-5 select-text">
+                    <input type="hidden" id="entry-edit-id">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-sm uppercase text-deep-brown tracking-wide">Entry Title</label>
+                            <input type="text" id="post-title" required placeholder="e.g., Q3 Design Sync Retrospective" 
+                                   class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold focus:outline-none focus:border-vibrant-orange">
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-sm uppercase text-deep-brown tracking-wide">Searchable Tags (comma separated)</label>
+                            <input type="text" id="post-tags" placeholder="ux, leadership, metrics, testing" 
+                                   class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold focus:outline-none focus:border-vibrant-orange">
+                        </div>
+                    </div>
 
-            <h3>The Action Node</h3>
-            <p>Tactile button with thick interactive offsets optimized for tap targets.</p>
-            <div class="live-canvas">
-                <button class="action-node">Execute Build</button>
-                <button class="action-node" style="background-color: var(--color-lavender-pink);">Analyze System</button>
-                <button class="action-node" style="background-color: var(--color-vibrant-orange); color: white;">Initialize App</button>
-            </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-display font-extrabold text-sm uppercase text-deep-brown tracking-wide">Main Narrative Copy</label>
+                        <textarea id="post-copy" required rows="5" placeholder="Deeply document the scenario, the technical bottlenecks, and organizational challenges encountered..." 
+                                  class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold focus:outline-none focus:border-vibrant-orange"></textarea>
+                    </div>
 
-            <h3>The Segmented Controller</h3>
-            <p>Low-friction navigational controls to isolate environments and toggle views.</p>
-            <div class="live-canvas">
-                <div class="segmented-control">
-                    <button class="segment-btn active" onclick="switchSegment(this, 'dev')">Developer</button>
-                    <button class="segment-btn" onclick="switchSegment(this, 'staging')">Staging</button>
-                    <button class="segment-btn" onclick="switchSegment(this, 'production')">Production</button>
-                </div>
-                <div style="font-family: monospace; font-size: 13px; font-weight: bold; width: 100%; margin-top: 8px;" id="segment-feedback">
-                    Active Environment: DEV
-                </div>
-            </div>
+                    <!-- Alignment details - wrapping text onto multiple lines beautifully -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-xs uppercase text-vibrant-orange tracking-wide leading-tight">01. Key Insight / Learning</label>
+                            <textarea id="post-insight" required rows="3" placeholder="What core paradigm shifted during this project lifecycle?" 
+                                      class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold text-xs focus:outline-none focus:border-vibrant-orange flex-grow"></textarea>
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-xs uppercase text-mustard tracking-wide leading-tight">02. Set Actionable Goal</label>
+                            <textarea id="post-goal" required rows="3" placeholder="Establish a clear key result or trace metrics from a previous goal..." 
+                                      class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold text-xs focus:outline-none focus:border-vibrant-orange flex-grow"></textarea>
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-display font-extrabold text-xs uppercase text-soft-salmon tracking-wide leading-tight">03. Change Protocol</label>
+                            <textarea id="post-different" required rows="3" placeholder="Specifically, what structural tactic will you approach differently?" 
+                                      class="border-4 border-deep-brown bg-white p-3 rounded-xl font-bold text-xs focus:outline-none focus:border-vibrant-orange flex-grow"></textarea>
+                        </div>
+                    </div>
 
-            <h3>The Brutalist Collapse (Accordion)</h3>
-            <p>A clean structural drawer for high-density documentation listings.</p>
-            <div class="live-canvas">
-                <div class="brutalist-accordion">
-                    <div class="accordion-item">
-                        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-                            <span>01. Build Requirements</span>
-                            <span class="icon">＋</span>
-                        </button>
-                        <div class="accordion-panel">
-                            <div class="accordion-panel-content">
-                                Design systems require perfect code-sync pipelines. Ensure Node.js 20+ and variable font engines are active.
+                    <!-- Metric Dashboard Sliding Scale Grid -->
+                    <div class="bg-lavender-pink/30 border-4 border-deep-brown p-5 rounded-2xl">
+                        <h3 class="font-display font-extrabold text-sm uppercase text-deep-brown mb-5 tracking-wider">Session Reflection Metrics</h3>
+                        
+                        <div class="space-y-4">
+                            <!-- Metric 1: Confidence -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Confidence</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-confidence" class="neo-slider w-full" oninput="updateSliderVal('confidence', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-confidence" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2: Communication -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Communication</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-communication" class="neo-slider w-full" oninput="updateSliderVal('communication', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-communication" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3: Team Contribution -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Team Contribution</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-contribution" class="neo-slider w-full" oninput="updateSliderVal('contribution', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-contribution" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 4: Decision Making -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Decision Making</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-decisions" class="neo-slider w-full" oninput="updateSliderVal('decisions', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-decisions" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
+                            </div>
+
+                            <!-- Metric 5: Energy Level -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                                <span class="md:col-span-3 text-xs font-bold uppercase text-deep-brown tracking-wider">Energy Level</span>
+                                <div class="md:col-span-7 flex items-center">
+                                    <input type="range" min="1" max="5" value="3" id="metric-energy" class="neo-slider w-full" oninput="updateSliderVal('energy', this.value)">
+                                </div>
+                                <div class="md:col-span-2 text-right">
+                                    <span id="val-energy" class="inline-block text-center bg-vibrant-orange text-white border-2 border-deep-brown font-mono font-black text-xs py-1 px-3 rounded-lg shadow-[2px_2px_0px_#501A0D]">3 / 5</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
-                        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-                            <span>02. Architecture Spec</span>
-                            <span class="icon">＋</span>
-                        </button>
-                        <div class="accordion-panel">
-                            <div class="accordion-panel-content">
-                                Map functional dependencies directly inside components. Unused assets are aggressively pruned during build execution sequences.
-                            </div>
+
+                    <!-- Chrome & Safari Supported File/Media Upload Field -->
+                    <div class="flex flex-col gap-1.5 bg-mustard/20 border-4 border-deep-brown p-4 rounded-2xl relative">
+                        <label class="font-display font-extrabold text-sm uppercase text-deep-brown tracking-wide">Attach Session Media (Photo, Audio, Video)</label>
+                        <div class="flex flex-col md:flex-row items-center gap-4">
+                            <input type="file" id="post-media" accept="image/*,audio/*,video/*" class="border-2 border-deep-brown bg-white p-2 rounded-xl font-bold w-full md:w-auto text-xs" onchange="previewMediaAttachment(event)">
+                            <button type="button" id="clear-media-btn" onclick="clearMediaUpload()" class="hidden brutalist-btn bg-soft-salmon text-deep-brown text-xs font-bold uppercase px-3 py-2 rounded-lg">Clear Media</button>
                         </div>
+                        <!-- Display previews -->
+                        <div id="media-preview-area" class="mt-3 hidden border-2 border-deep-brown rounded-xl p-2 bg-white max-h-48 overflow-hidden flex items-center justify-center"></div>
                     </div>
-                </div>
+
+                    <!-- Form Actions Control Panel -->
+                    <div class="flex justify-end gap-3 pt-3 border-t-2 border-deep-brown/20">
+                        <button type="button" onclick="toggleComposer()" class="brutalist-btn bg-soft-salmon text-deep-brown font-display font-extrabold uppercase px-6 py-3 rounded-xl">Cancel</button>
+                        <button type="submit" id="submit-btn" class="brutalist-btn bg-mustard text-deep-brown font-display font-extrabold uppercase px-8 py-3 rounded-xl">Publish Entry</button>
+                    </div>
+                </form>
             </div>
 
-            <h3>Status Badge Panel</h3>
-            <p>Context-aware system tag blocks expressing instant operational outcomes.</p>
-            <div class="live-canvas">
-                <div class="status-badge-panel">
-                    <span class="status-badge success">✦ Pipeline Operational</span>
-                    <span class="status-badge warning">▲ Server Degraded</span>
-                    <span class="status-badge error">■ Deploy Interrupted</span>
-                </div>
+            <!-- Post Entry Timeline Feed Container -->
+            <div id="timeline-container" class="space-y-6 select-text">
+                <!-- Dynamic entries generate here -->
             </div>
 
-            <h3>Interactive Action Card & Toast Dispatch</h3>
-            <p>Press the action card down or trigger the dispatch event to test structural hover depth transitions and global alerts.</p>
-            <div class="live-canvas">
-                <div class="brutalist-card-interactive" onclick="spawnToast()">
-                    <h4 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin-bottom: 4px;">Matrix Node</h4>
-                    <p style="font-size: 13px; margin-bottom: 0; opacity: 0.9;">Clicking this card invokes an active dispatcher event alert in real-time.</p>
-                </div>
-                <button class="action-node" onclick="spawnToast()" style="background-color: var(--color-mustard);">Dispatch Alert Notification</button>
+        </main>
+    </div>
+
+    <!-- Custom Neo-Brutalist Confirmation Modal -->
+    <div id="modal-container" class="no-print fixed inset-0 bg-deep-brown/70 z-50 flex items-center justify-center hidden p-4">
+        <div class="brutalist-card bg-warm-cream max-w-md w-full p-6 rounded-2xl">
+            <h3 class="font-display font-extrabold text-2xl text-vibrant-orange uppercase tracking-tight mb-3">⚠️ Critical Action</h3>
+            <p class="font-bold text-sm mb-6 leading-relaxed">Are you absolutely sure you want to delete this leadership record? This action cannot be reversed and will update the local cache immediately.</p>
+            <div class="flex gap-3 justify-end">
+                <button onclick="closeConfirmationModal()" class="brutalist-btn bg-soft-salmon text-deep-brown font-display font-bold uppercase px-5 py-2 rounded-xl">No, Retain Entry</button>
+                <button id="modal-confirm-btn" class="brutalist-btn bg-vibrant-orange text-white font-display font-bold uppercase px-5 py-2 rounded-xl">Yes, Purge Entry</button>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <!-- Section: Voice -->
-        <section class="card" id="tone">
-            <h2>06. Conversational Tone Matrices</h2>
-            <p>
-                We do not hide behind sterile, computerized templates. Our verbal frameworks match the raw structure of our visual layouts—prioritizing technical confidence, logic, and intent. Here is how our voice maps across different product channels:
-            </p>
-
-            <div class="tone-grid">
-                <!-- Tone: Professional -->
-                <div class="tone-card">
-                    <div class="tone-badge" style="background-color: var(--color-soft-salmon);">Professional</div>
-                    <h3 style="margin-top: 0;">The Systems Engineer</h3>
-                    <p style="font-size: 14px; opacity: 0.95;">
-                        <strong>When to use:</strong> Technical documentation, stakeholder updates, engineering handoffs, and architectural reviews.
-                    </p>
-                    <div style="background: rgba(80, 26, 13, 0.04); border-left: 4px solid var(--color-deep-brown); padding: var(--space-2); font-family: monospace; font-size: 13px; color: var(--color-deep-brown);">
-                        "We successfully refactored the legacy spacing properties, introducing a standardized scale that optimizes cross-device layout rendering and reduces visual latency by 15%."
-                    </div>
-                </div>
-
-                <!-- Tone: Warm & Universal -->
-                <div class="tone-card">
-                    <div class="tone-badge" style="background-color: var(--color-lavender-pink);">Warm & Universal</div>
-                    <h3 style="margin-top: 0;">The Collaborative Ally</h3>
-                    <p style="font-size: 14px; opacity: 0.95;">
-                        <strong>When to use:</strong> Core onboarding journeys, product errors, team alignment calls, and help forums.
-                    </p>
-                    <div style="background: rgba(80, 26, 13, 0.04); border-left: 4px solid var(--color-soft-salmon); padding: var(--space-2); font-family: monospace; font-size: 13px; color: var(--color-deep-brown);">
-                        "Welcome! Whether you are here to design layout hierarchies or write production-ready code, we’ve structured this system to make building digital interfaces intuitive and stress-free."
-                    </div>
-                </div>
-
-                <!-- Tone: Authoritative -->
-                <div class="tone-card">
-                    <div class="tone-badge" style="background-color: var(--color-mustard);">Authoritative</div>
-                    <h3 style="margin-top: 0;">The System Architect</h3>
-                    <p style="font-size: 14px; opacity: 0.95;">
-                        <strong>When to use:</strong> Design principles, core style mandates, platform rulebooks, and public case studies.
-                    </p>
-                    <div style="background: rgba(80, 26, 13, 0.04); border-left: 4px solid var(--color-vibrant-orange); padding: var(--space-2); font-family: monospace; font-size: 13px; color: var(--color-deep-brown);">
-                        "A design system is only as stable as its code parity. We mandate absolute layout synchronization to eliminate design-to-production regressions at the root."
-                    </div>
-                </div>
-
-                <!-- Tone: Creative Chaos (Native Core) -->
-                <div class="tone-card">
-                    <div class="tone-badge" style="background-color: var(--color-vibrant-orange); color: var(--color-surface);">Creative Chaos</div>
-                    <h3 style="margin-top: 0;">The Expressive Catalyst</h3>
-                    <p style="font-size: 14px; opacity: 0.95;">
-                        <strong>When to use:</strong> Personal workspace portfolios, visual design updates, and experimental system releases.
-                    </p>
-                    <div style="background: rgba(80, 26, 13, 0.04); border-left: 4px solid var(--color-mustard); padding: var(--space-2); font-family: monospace; font-size: 13px; color: var(--color-deep-brown);">
-                        "Unleash the curves. Double the contrast margins. We build mathematically sound frameworks specifically to give ourselves the power to break them beautifully."
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rhetorical Strategy Module -->
-            <div class="tone-card" style="margin-top: var(--space-4);">
-                <div class="tone-badge" style="background-color: var(--color-deep-brown); color: var(--color-surface);">The Rhetorical Strategy</div>
-                <h3 style="margin-top: 0;">How We Persuade: Ethos, Logos, and Pathos</h3>
-                <p>
-                    We balance classic modes of persuasion to build structural alignment across product departments:
-                </p>
-                <div class="rhetoric-list">
-                    <div class="rhetoric-item">
-                        <span class="rhetoric-tag">Ethos (Credibility & Integrity)</span>
-                        <p style="font-size: 14px; margin-top: 4px; margin-bottom: 0;">
-                            "Built upon industry-vetted engineering principles and modeled directly from functional component architectures, this platform integrates trusted patterns used by scaling production environments."
-                        </p>
-                    </div>
-                    <div class="rhetoric-item" style="border-left-color: var(--color-mustard);">
-                        <span class="rhetoric-tag" style="color: var(--color-mustard);">Logos (System Logic & Reasoning)</span>
-                        <p style="font-size: 14px; margin-top: 4px; margin-bottom: 0;">
-                            "By routing our layout spacings through a strict 8px incremental grid, we remove arbitrary visual adjustments and eliminate UI regressions across all device screen targets."
-                        </p>
-                    </div>
-                    <div class="rhetoric-item" style="border-left-color: var(--color-soft-salmon);">
-                        <span class="rhetoric-tag" style="color: var(--color-soft-salmon);">Pathos (Empathy & Pain Relief)</span>
-                        <p style="font-size: 14px; margin-top: 4px; margin-bottom: 0;">
-                            "Designers shouldn't lose sleep debugging spacing mismatches or wrestling with broken components. We build clean, logical systems to protect your creative energy for what matters most."
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="loud-quote" style="margin-top: var(--space-5);">
-                "We treat text and color as structural code syntax. They are not decorations; they are active hierarchies."
-            </div>
-        </section>
-
-    </main>
+    <!-- Toast Notifications Area -->
+    <div id="toast-container" class="no-print"></div>
 
     <script>
-        let currentFamily = 'bricolage';
+        let entries = [];
+        let selectedMediaBase64 = null;
+        let selectedMediaType = null;
+        let activeDeletionId = null;
+        let fontScale = 1.0; // Dynamic scale tracker
 
-        function setFamily(family) {
-            currentFamily = family;
-            const target = document.getElementById('specimen-target');
-            const btnBricolage = document.getElementById('toggle-bricolage');
-            const btnDegular = document.getElementById('toggle-degular');
+        // Contrast modifier function
+        function toggleContrast() {
+            document.body.classList.toggle('high-contrast');
+            const isHigh = document.body.classList.contains('high-contrast');
+            spawnToast(
+                "Contrast Adjusted", 
+                isHigh ? "High-contrast access override active." : "Standard system theme restored."
+            );
+        }
 
-            if (family === 'bricolage') {
-                target.className = 'specimen-text-bricolage';
-                btnBricolage.classList.add('active');
-                btnDegular.classList.remove('active');
-            } else {
-                target.className = 'specimen-text-degular';
-                btnBricolage.classList.remove('active');
-                btnDegular.classList.add('active');
+        function showDesc(type) {
+            const desc = document.getElementById(type + '-desc');
+            if (desc) desc.classList.add('active');
+        }
+
+        function hideDesc(type) {
+            const desc = document.getElementById(type + '-desc');
+            if (desc) desc.classList.remove('active');
+        }
+
+        // Typographic scale modifiers
+        function updateFontScaleUI() {
+            document.documentElement.style.setProperty('--font-scale', fontScale);
+            const displayBtn = document.querySelector('.scale-display');
+            if (displayBtn) {
+                displayBtn.innerText = Math.round(fontScale * 100) + '%';
             }
         }
 
-        function updateText() {
-            const input = document.getElementById('type-test-input').value;
-            document.getElementById('specimen-target').innerText = input || ' ';
+        function adjustFontScale(delta) {
+            fontScale = Math.min(Math.max(fontScale + delta, 0.7), 2.0); // Restrict scale sizes cleanly
+            updateFontScaleUI();
+            spawnToast("Scale Adjusted", `Global scale set to ${Math.round(fontScale * 100)}%.`);
         }
 
-        function updateSize() {
-            const val = document.getElementById('size-slider').value;
-            document.getElementById('size-indicator').innerText = val + 'px';
-            document.getElementById('specimen-target').style.fontSize = val + 'px';
+        function resetFontScale() {
+            fontScale = 1.0;
+            updateFontScaleUI();
+            spawnToast("Scale Reset", "Global scale reset to 100%.");
         }
 
-        function updateWeight() {
-            const val = document.getElementById('weight-slider').value;
-            document.getElementById('weight-indicator').innerText = val;
-            document.getElementById('specimen-target').style.fontWeight = val;
+        // Default layout parameters
+        const defaultEntries = [
+            {
+                id: "mock-1",
+                date: "2026-05-20",
+                title: "Launching Design System v3 with System-Scale Architecture",
+                copy: "We navigated a complex migration sequence across five distinct scaling product nodes. Aligning the visual boundaries of Bricolage display weights required absolute cross-team alignment. The team experienced initial cognitive friction, but structural automation eliminated our spacing spacing errors.",
+                insight: "Perfect visual alignment is achieved by writing production-level code in sync with designers, rather than handing off rigid static templates.",
+                goal: "Establish 100% components-to-code synchronicity in our staging testing pipelines before the Q4 build begins.",
+                different: "Deploy automated visual regression tests into standard CI channels to prevent design shifts.",
+                tags: ["leadership", "ux", "metrics"],
+                confidence: 5,
+                communication: 4,
+                contribution: 5,
+                decisions: 4,
+                energy: 5,
+                media: null,
+                mediaType: null,
+                aiQuote: "Design leadership is not about managing screens; it is about building the architectural bridges of trust that carry design intent cleanly into logic. — Jony Ive"
+            }
+        ];
+
+        window.onload = function() {
+            const savedEntries = localStorage.getItem("diary-entries");
+            if (savedEntries) {
+                entries = JSON.parse(savedEntries);
+            } else {
+                entries = [...defaultEntries];
+                saveEntriesToLocalStorage();
+            }
+
+            renderTimeline();
+            updateSidebarStats();
+            setupResizableLayout();
+            updateFontScaleUI(); // Initialize accessibility tracker
         }
 
-        function switchSegment(btn, env) {
-            const control = btn.parentElement;
-            control.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById('segment-feedback').innerText = "Active Environment: " + env.toUpperCase();
+        // Draggable Border Panel resizer control script
+        function setupResizableLayout() {
+            const sidebar = document.getElementById('sidebar');
+            const resizer = document.getElementById('resizer');
+            const container = document.getElementById('app-container');
+
+            let isResizing = false;
+
+            resizer.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                document.body.style.cursor = 'col-resize';
+                document.body.classList.add('select-none');
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+                const containerRect = container.getBoundingClientRect();
+                let newWidth = e.clientX - containerRect.left;
+                
+                // Keep boundaries standard
+                const minWidth = 260;
+                const maxWidth = 500;
+                if (newWidth < minWidth) newWidth = minWidth;
+                if (newWidth > maxWidth) newWidth = maxWidth;
+
+                sidebar.style.width = `${newWidth}px`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isResizing) {
+                    isResizing = false;
+                    document.body.style.cursor = '';
+                    document.body.classList.remove('select-none');
+                }
+            });
+
+            // Touch support for tablet resizability
+            resizer.addEventListener('touchstart', (e) => {
+                isResizing = true;
+            });
+            document.addEventListener('touchmove', (e) => {
+                if (!isResizing) return;
+                const touch = e.touches[0];
+                const containerRect = container.getBoundingClientRect();
+                let newWidth = touch.clientX - containerRect.left;
+                
+                const minWidth = 260;
+                const maxWidth = 500;
+                if (newWidth < minWidth) newWidth = minWidth;
+                if (newWidth > maxWidth) newWidth = maxWidth;
+
+                sidebar.style.width = `${newWidth}px`;
+            });
+            document.addEventListener('touchend', () => {
+                isResizing = false;
+            });
         }
 
-        function toggleAccordion(btn) {
-            const icon = btn.querySelector('.icon');
-            const panel = btn.nextElementSibling;
+        // Interactive range value display updating helper
+        function updateSliderVal(metric, val) {
+            document.getElementById(`val-${metric}`).innerText = `${val} / 5`;
+        }
+
+        function saveEntriesToLocalStorage() {
+            localStorage.setItem("diary-entries", JSON.stringify(entries));
+        }
+
+        function toggleComposer() {
+            const panel = document.getElementById('composer-panel');
+            const arrow = document.getElementById('composer-arrow');
+            const form = document.getElementById('entry-form');
             
-            if (panel.style.maxHeight && panel.style.maxHeight !== "0px") {
-                panel.style.maxHeight = "0px";
-                if (icon) icon.innerText = '＋';
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+                panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-                if (icon) icon.innerText = '－';
+                panel.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+                form.reset();
+                clearMediaUpload();
+                document.getElementById('entry-edit-id').value = "";
+                document.getElementById('form-heading').innerText = "Drafting New Entry";
+                document.getElementById('submit-btn').innerText = "Publish Entry";
+
+                // Reset sliders visually
+                const metrics = ['confidence', 'communication', 'contribution', 'decisions', 'energy'];
+                metrics.forEach(m => {
+                    document.getElementById(`metric-${m}`).value = 3;
+                    updateSliderVal(m, 3);
+                });
             }
         }
 
-        function spawnToast() {
+        // Preview Chrome / Safari attachments
+        function previewMediaAttachment(event) {
+            const file = event.target.files[0];
+            const area = document.getElementById('media-preview-area');
+            const clearBtn = document.getElementById('clear-media-btn');
+            
+            if (!file) return;
+            selectedMediaType = file.type;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                selectedMediaBase64 = e.target.result;
+                area.innerHTML = "";
+                area.classList.remove('hidden');
+                clearBtn.classList.remove('hidden');
+
+                if (file.type.startsWith('image/')) {
+                    area.innerHTML = `<img src="${selectedMediaBase64}" class="max-h-40 object-contain rounded-lg border-2 border-deep-brown shadow-[2px_2px_0px_#501A0D]">`;
+                } else if (file.type.startsWith('video/')) {
+                    area.innerHTML = `<video controls src="${selectedMediaBase64}" class="max-h-40 rounded-lg border-2 border-deep-brown shadow-[2px_2px_0px_#501A0D]"></video>`;
+                } else if (file.type.startsWith('audio/')) {
+                    area.innerHTML = `<audio controls src="${selectedMediaBase64}" class="w-full mt-2"></audio>`;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearMediaUpload() {
+            document.getElementById('post-media').value = "";
+            const area = document.getElementById('media-preview-area');
+            area.innerHTML = "";
+            area.classList.add('hidden');
+            document.getElementById('clear-media-btn').classList.add('hidden');
+            selectedMediaBase64 = null;
+            selectedMediaType = null;
+        }
+
+        async function fetchAIQuote(title, copy, insight) {
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const systemPrompt = "Act as a visionary design leadership coach. Based on the user's design leadership journal entry provided, generate a compelling, inspiring design leadership quote. Do not output anything except the quote itself followed by an attribution to a fictional or historical design visionary. Under 2 sentences.";
+            const userQuery = `Title: ${title}\nContext: ${copy}\nInsight: ${insight}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            let delay = 1000;
+            for (let i = 0; i < 3; i++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        const quote = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                        if (quote) return quote.replace(/['"]/g, "").trim();
+                    }
+                } catch (err) {
+                    console.debug(`API Attempt ${i + 1} throttled. Retrying...`);
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2;
+            }
+            return "Empathy and robust code logical structures build great UX. — Design Systems Protocol";
+        }
+
+        // Publish & Submission controls
+        async function handlePostSubmit(event) {
+            event.preventDefault();
+
+            const editId = document.getElementById('entry-edit-id').value;
+            const title = document.getElementById('post-title').value;
+            const copy = document.getElementById('post-copy').value;
+            const insight = document.getElementById('post-insight').value;
+            const goal = document.getElementById('post-goal').value;
+            const different = document.getElementById('post-different').value;
+            
+            const rawTags = document.getElementById('post-tags').value;
+            const tags = rawTags ? rawTags.split(',').map(t => t.trim().toLowerCase()).filter(t => t !== "") : [];
+
+            // Read slider values dynamically
+            const confidence = parseInt(document.getElementById('metric-confidence').value);
+            const communication = parseInt(document.getElementById('metric-communication').value);
+            const contribution = parseInt(document.getElementById('metric-contribution').value);
+            const decisions = parseInt(document.getElementById('metric-decisions').value);
+            const energy = parseInt(document.getElementById('metric-energy').value);
+
+            let currentMedia = selectedMediaBase64;
+            let currentMediaType = selectedMediaType;
+
+            if (editId) {
+                const existing = entries.find(e => e.id === editId);
+                if (!currentMedia && existing) {
+                    currentMedia = existing.media;
+                    currentMediaType = existing.mediaType;
+                }
+            }
+
+            const dateStr = new Date().toISOString().split('T')[0];
+            const tempId = editId || `entry-${Date.now()}`;
+
+            const newEntry = {
+                id: tempId,
+                date: editId ? (entries.find(e => e.id === editId)?.date || dateStr) : dateStr,
+                title,
+                copy,
+                insight,
+                goal,
+                different,
+                tags,
+                confidence,
+                communication,
+                contribution,
+                decisions,
+                energy,
+                media: currentMedia,
+                mediaType: currentMediaType,
+                aiQuote: editId ? (entries.find(e => e.id === editId)?.aiQuote || "Generating design advice...") : "Generating design advice..."
+            };
+
+            if (editId) {
+                const idx = entries.findIndex(e => e.id === editId);
+                entries[idx] = newEntry;
+                spawnToast("Record Modified", "The leadership record has been edited locally.");
+            } else {
+                entries.unshift(newEntry);
+                spawnToast("Record Published", "Draft added. Fetching dynamic AI leadership quote...");
+            }
+
+            toggleComposer();
+            saveEntriesToLocalStorage();
+            renderTimeline();
+            updateSidebarStats();
+
+            // Run async API query in background to retrieve Quote details
+            if (!editId) {
+                const quote = await fetchAIQuote(title, copy, insight);
+                const entryToUpdate = entries.find(e => e.id === tempId);
+                if (entryToUpdate) {
+                    entryToUpdate.aiQuote = quote;
+                    saveEntriesToLocalStorage();
+                    renderTimeline();
+                }
+            }
+        }
+
+        function editPost(id) {
+            const entry = entries.find(e => e.id === id);
+            if (!entry) return;
+
+            const panel = document.getElementById('composer-panel');
+            if (panel.classList.contains('hidden')) {
+                toggleComposer();
+            }
+
+            document.getElementById('entry-edit-id').value = entry.id;
+            document.getElementById('form-heading').innerText = "Editing Diary Entry";
+            document.getElementById('submit-btn').innerText = "Save Changes";
+
+            document.getElementById('post-title').value = entry.title;
+            document.getElementById('post-copy').value = entry.copy;
+            document.getElementById('post-insight').value = entry.insight;
+            document.getElementById('post-goal').value = entry.goal;
+            document.getElementById('post-different').value = entry.different;
+            document.getElementById('post-tags').value = entry.tags.join(', ');
+
+            // Populate sliders
+            document.getElementById('metric-confidence').value = entry.confidence;
+            updateSliderVal('confidence', entry.confidence);
+
+            document.getElementById('metric-communication').value = entry.communication;
+            updateSliderVal('communication', entry.communication);
+
+            document.getElementById('metric-contribution').value = entry.contribution;
+            updateSliderVal('contribution', entry.contribution);
+
+            document.getElementById('metric-decisions').value = entry.decisions;
+            updateSliderVal('decisions', entry.decisions);
+
+            document.getElementById('metric-energy').value = entry.energy;
+            updateSliderVal('energy', entry.energy);
+
+            if (entry.media) {
+                const area = document.getElementById('media-preview-area');
+                area.innerHTML = "";
+                area.classList.remove('hidden');
+                document.getElementById('clear-media-btn').classList.remove('hidden');
+
+                if (entry.mediaType.startsWith('image/')) {
+                    area.innerHTML = `<img src="${entry.media}" class="max-h-40 object-contain rounded-lg border-2 border-deep-brown">`;
+                } else if (entry.mediaType.startsWith('video/')) {
+                    area.innerHTML = `<video controls src="${entry.media}" class="max-h-40 rounded-lg border-2 border-deep-brown"></video>`;
+                } else if (entry.mediaType.startsWith('audio/')) {
+                    area.innerHTML = `<audio controls src="${entry.media}" class="w-full mt-2"></audio>`;
+                }
+            }
+        }
+
+        // Confirmation modals
+        function triggerDeleteConfirmation(id) {
+            activeDeletionId = id;
+            const container = document.getElementById('modal-container');
+            container.classList.remove('hidden');
+            
+            document.getElementById('modal-confirm-btn').onclick = function() {
+                executePostDeletion();
+            }
+        }
+
+        function closeConfirmationModal() {
+            document.getElementById('modal-container').classList.add('hidden');
+            activeDeletionId = null;
+        }
+
+        function executePostDeletion() {
+            if (!activeDeletionId) return;
+            entries = entries.filter(e => e.id !== activeDeletionId);
+            saveEntriesToLocalStorage();
+            closeConfirmationModal();
+            renderTimeline();
+            updateSidebarStats();
+            spawnToast("Record Removed", "Diary entry has been successfully purged.");
+        }
+
+        // Export active layouts cleanly
+        function exportData(format) {
+            let dataStr = "";
+            let fileType = "";
+            let fileName = "";
+
+            if (format === 'json') {
+                dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entries, null, 2));
+                fileType = "application/json";
+                fileName = "leadership-diary-export.json";
+            } else {
+                let mdContent = `# Amanda Valverde // Leadership Diary Export\n\n`;
+                entries.forEach(e => {
+                    mdContent += `---\ntitle: "${e.title}"\ndate: ${e.date}\ntags: ${e.tags.join(', ')}\n---\n\n`;
+                    mdContent += `> "${e.aiQuote}"\n\n`;
+                    mdContent += `### Reflections & Context\n${e.copy}\n\n`;
+                    mdContent += `### System Metrics\n`;
+                    mdContent += `* Confidence: ${e.confidence}/5\n* Communication: ${e.communication}/5\n* Contribution: ${e.contribution}/5\n* Decisions: ${e.decisions}/5\n* Energy: ${e.energy}/5\n\n`;
+                    mdContent += `* **Key Learning:** ${e.insight}\n`;
+                    mdContent += `* **Actionable Goal:** ${e.goal}\n`;
+                    mdContent += `* **Change Protocol:** ${e.different}\n\n`;
+                });
+                dataStr = "data:text/markdown;charset=utf-8," + encodeURIComponent(mdContent);
+                fileType = "text/markdown";
+                fileName = "leadership-diary-posts.md";
+            }
+
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", fileName);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+
+            spawnToast("Data Exported", `Data packaged as ${format.toUpperCase()} for Git commitment.`);
+        }
+
+        function exportPostToPDF() {
+            spawnToast("PDF Print Sync", "Preparing print layout view. Use system Print to PDF controls.");
+            setTimeout(() => {
+                window.print();
+            }, 600);
+        }
+
+        function filterEntries() {
+            renderTimeline();
+        }
+
+        function filterByTag(tag) {
+            document.getElementById('tag-search').value = tag;
+            renderTimeline();
+        }
+
+        function updateSidebarStats() {
+            if (entries.length === 0) {
+                document.getElementById('avg-confidence').innerText = "-";
+                document.getElementById('avg-communication').innerText = "-";
+                document.getElementById('avg-contribution').innerText = "-";
+                document.getElementById('avg-decisions').innerText = "-";
+                document.getElementById('avg-energy').innerText = "-";
+                document.getElementById('sidebar-tags').innerHTML = '<span class="text-[11px] font-bold opacity-60">No tags recorded.</span>';
+                return;
+            }
+
+            let sums = { conf: 0, comm: 0, cont: 0, dec: 0, en: 0 };
+            let tagMap = {};
+
+            entries.forEach(e => {
+                sums.conf += e.confidence;
+                sums.comm += e.communication;
+                sums.cont += e.contribution;
+                sums.dec += e.decisions;
+                sums.en += e.energy;
+
+                e.tags.forEach(t => {
+                    tagMap[t] = (tagMap[t] || 0) + 1;
+                });
+            });
+
+            const len = entries.length;
+            document.getElementById('avg-confidence').innerText = (sums.conf / len).toFixed(1);
+            document.getElementById('avg-communication').innerText = (sums.comm / len).toFixed(1);
+            document.getElementById('avg-contribution').innerText = (sums.cont / len).toFixed(1);
+            document.getElementById('avg-decisions').innerText = (sums.dec / len).toFixed(1);
+            document.getElementById('avg-energy').innerText = (sums.en / len).toFixed(1);
+
+            const tagContainer = document.getElementById('sidebar-tags');
+            tagContainer.innerHTML = "";
+            Object.keys(tagMap).forEach(tag => {
+                const badge = document.createElement('button');
+                badge.onclick = () => filterByTag(tag);
+                badge.className = "bg-lavender-pink border border-deep-brown hover:bg-vibrant-orange hover:text-white transition-colors px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider";
+                badge.innerText = `${tag} (${tagMap[tag]})`;
+                tagContainer.appendChild(badge);
+            });
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = "";
+
+            const query = document.getElementById('tag-search').value.toLowerCase().trim();
+            const filtered = entries.filter(e => {
+                if (!query) return true;
+                return e.title.toLowerCase().includes(query) || 
+                       e.copy.toLowerCase().includes(query) ||
+                       e.tags.some(t => t.toLowerCase().includes(query));
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="brutalist-card bg-warm-cream p-12 text-center rounded-2xl">
+                        <span class="text-4xl">🔎</span>
+                        <h3 class="font-display font-extrabold text-lg text-deep-brown mt-3">No Leadership Records Found</h3>
+                        <p class="text-xs font-bold text-deep-brown/60 mt-1">Try adjusting your active filters or clear the tag search engine.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(entry => {
+                const card = document.createElement('article');
+                card.className = "brutalist-card card-print p-6 md:p-8 rounded-3xl flex flex-col gap-5";
+
+                let aiBlock = "";
+                if (entry.aiQuote) {
+                    const isPending = entry.aiQuote === "Generating design advice...";
+                    aiBlock = `
+                        <div class="bg-lavender-pink border-4 border-deep-brown p-4 md:p-6 rounded-2xl relative shadow-[4px_4px_0px_#501A0D] mb-1">
+                            <span class="absolute top-2 right-4 text-2xl text-vibrant-orange">✦</span>
+                            <p class="font-display font-black text-lg md:text-xl text-deep-brown leading-tight italic ${isPending ? 'ai-loading-pulse' : ''}">
+                                "${entry.aiQuote}"
+                            </p>
+                            <span class="block text-[10px] font-mono uppercase tracking-widest text-vibrant-orange mt-2">Design Leadership Insight</span>
+                        </div>
+                    `;
+                }
+
+                let mediaBlock = "";
+                if (entry.media) {
+                    if (entry.mediaType.startsWith('image/')) {
+                        mediaBlock = `
+                            <div class="border-4 border-deep-brown rounded-2xl overflow-hidden max-h-96 bg-black flex justify-center mb-2">
+                                <img src="${entry.media}" alt="Post Attached Image" class="object-contain max-h-96 w-full">
+                            </div>`;
+                    } else if (entry.mediaType.startsWith('video/')) {
+                        mediaBlock = `
+                            <div class="border-4 border-deep-brown rounded-2xl overflow-hidden bg-black mb-2">
+                                <video controls src="${entry.media}" class="w-full max-h-96"></video>
+                            </div>`;
+                    } else if (entry.mediaType.startsWith('audio/')) {
+                        mediaBlock = `
+                            <div class="bg-mustard/10 border-4 border-deep-brown p-3 rounded-2xl mb-2 flex items-center gap-3">
+                                <span class="text-2xl">🎵</span>
+                                <audio controls src="${entry.media}" class="flex-grow"></audio>
+                            </div>`;
+                    }
+                }
+
+                const tagList = entry.tags.map(t => `
+                    <span onclick="filterByTag('${t}')" class="cursor-pointer bg-soft-salmon/30 border border-deep-brown text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full hover:bg-vibrant-orange hover:text-white transition-all">
+                        #${t}
+                    </span>
+                `).join('');
+
+                // Profile Image verbatim usage: Facetune_26-10-2025-16-39-45.jpg
+                card.innerHTML = `
+                    <!-- Header with clean vertical alignment lines -->
+                    <div class="flex justify-between items-start gap-4 flex-wrap border-b-2 border-deep-brown/10 pb-4">
+                        <div class="flex items-center gap-3">
+                            <img src="Facetune_26-10-2025-16-39-45.jpg" class="w-10 h-10 object-cover rounded-full border-2 border-deep-brown shadow-[1px_1px_0px_#501A0D]" onerror="this.onerror=null; this.src='https://placehold.co/100x100/FBCBFA/501A0D?text=AV'">
+                            <div>
+                                <h3 class="font-display font-extrabold text-xl md:text-2xl uppercase text-deep-brown tracking-tight leading-none">${entry.title}</h3>
+                                <span class="text-[10px] font-mono tracking-widest uppercase text-vibrant-orange font-bold mt-1.5 block">${entry.date}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Toolbar Controls -->
+                        <div class="no-print flex gap-1.5">
+                            <button onclick="editPost('${entry.id}')" class="brutalist-btn bg-mustard text-deep-brown p-1.5 rounded-lg text-xs" title="Edit Entry">📝 Edit</button>
+                            <button onclick="triggerDeleteConfirmation('${entry.id}')" class="brutalist-btn bg-soft-salmon text-deep-brown p-1.5 rounded-lg text-xs" title="Delete Entry">✕ Delete</button>
+                            <button onclick="exportPostToPDF()" class="brutalist-btn bg-white text-deep-brown p-1.5 rounded-lg text-xs" title="Export as PDF">🖨️ PDF</button>
+                        </div>
+                    </div>
+
+                    <!-- AI Quote Header -->
+                    ${aiBlock}
+
+                    <!-- Core Copy Narrative -->
+                    <p class="text-sm font-bold leading-relaxed text-deep-brown/90 whitespace-pre-wrap">${entry.copy}</p>
+
+                    <!-- Embedded media preview blocks -->
+                    ${mediaBlock}
+
+                    <!-- Vertical Grid System for Insights and Protocols -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-warm-cream/40 border-t-2 border-deep-brown/10 pt-4">
+                        <div class="bg-lavender-pink/20 p-4 border-2 border-deep-brown rounded-2xl shadow-[2px_2px_0px_#501A0D] flex flex-col justify-between">
+                            <span class="block text-[10px] font-display uppercase tracking-widest text-vibrant-orange font-bold mb-1">Key Learning</span>
+                            <p class="text-xs font-bold text-deep-brown/95">${entry.insight}</p>
+                        </div>
+                        <div class="bg-mustard/10 p-4 border-2 border-deep-brown rounded-2xl shadow-[2px_2px_0px_#501A0D] flex flex-col justify-between">
+                            <span class="block text-[10px] font-display uppercase tracking-widest text-mustard font-bold mb-1">Set Goal</span>
+                            <p class="text-xs font-bold text-deep-brown/95">${entry.goal}</p>
+                        </div>
+                        <div class="bg-soft-salmon/10 p-4 border-2 border-deep-brown rounded-2xl shadow-[2px_2px_0px_#501A0D] flex flex-col justify-between">
+                            <span class="block text-[10px] font-display uppercase tracking-widest text-soft-salmon font-bold mb-1">Doing Differently</span>
+                            <p class="text-xs font-bold text-deep-brown/95">${entry.different}</p>
+                        </div>
+                    </div>
+
+                    <!-- Bottom alignment lines for metrics metadata and tags -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-t-2 border-deep-brown/10 pt-4">
+                        <div class="flex flex-wrap gap-2 text-[10px] font-bold">
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Confidence: ${entry.confidence}/5</span>
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Comm: ${entry.communication}/5</span>
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Contrib: ${entry.contribution}/5</span>
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Decisions: ${entry.decisions}/5</span>
+                            <span class="bg-warm-cream border-2 border-deep-brown rounded px-2 py-0.5">Energy: ${entry.energy}/5</span>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-1">
+                            ${tagList}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Global Alert toast dispatcher
+        function spawnToast(title = "Event Triggered", body = "System dispatch successful.") {
             let container = document.getElementById('toast-container');
             if (!container) {
                 container = document.createElement('div');
@@ -1226,8 +1288,8 @@
             toast.innerHTML = `
                 <span style="font-size: 20px;">⚡</span>
                 <div>
-                    <strong style="font-family: var(--font-display); font-size: 12px; text-transform: uppercase; display: block; color: var(--color-deep-brown);">Event Triggered</strong>
-                    <span style="font-size: 12px; color: var(--color-deep-brown);">System dispatch successful.</span>
+                    <strong style="font-family: var(--font-display); font-size: 12px; text-transform: uppercase; display: block; color: var(--color-deep-brown);">${title}</strong>
+                    <span style="font-size: 12px; color: var(--color-deep-brown);">${body}</span>
                 </div>
             `;
             container.appendChild(toast);
@@ -1238,7 +1300,7 @@
                 setTimeout(() => {
                     toast.remove();
                 }, 200);
-            }, 3000);
+            }, 3500);
         }
     </script>
 </body>
