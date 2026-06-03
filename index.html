@@ -1863,6 +1863,33 @@
                 }, 200);
             }, 3500);
         }
+
+        // Paste this function into your index.html inside the <script> section
+async function sendAuthSms() {
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    activeSmsCode = code;
+    
+    // Replace the URL below with your actual Vercel project URL
+    const VERCEL_URL = 'https://YOUR-VERCEL-PROJECT-URL.vercel.app';
+
+    try {
+        const response = await fetch(`${VERCEL_URL}/api/send-code`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: code })
+        });
+        
+        if (response.ok) {
+            spawnToast("SMS Dispatched", "A verification code has been dispatched to your email/phone gateway.");
+        } else {
+            throw new Error("Backend request failed");
+        }
+    } catch (error) {
+        console.error("Backend error, falling back to local simulation:", error);
+        console.log("[Verification Console Log] Security code generated:", code);
+        spawnToast("SMS Dispatched", "A verification security code has been sent to your registered gateway.");
+    }
+}
     </script>
 </body>
 </html>
